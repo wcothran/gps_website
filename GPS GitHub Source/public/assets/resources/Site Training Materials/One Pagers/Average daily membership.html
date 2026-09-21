@@ -1,0 +1,336 @@
+<!doctype html>
+<!-- v1.0 · 2026-05-20 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ADM Dashboard · One-Page Reference · Administrator Navigator · SCDE</title>
+<meta name="description" content="A one-page reference for the Average Daily Membership (ADM) Dashboard inside Administrator Navigator. South Carolina Department of Education." />
+<style>
+:root {
+  --scde-slate: #2F3D4C; --scde-slate-700: #243140; --scde-slate-900: #1B2837;
+  --scde-slate-200: #E5EAF0; --scde-slate-100: #F2F5F9;
+  --scde-gold: #F1BA55; --scde-gold-dark: #C99224; --scde-gold-100: #FCEFD3;
+  --scde-teal: #43718B; --scde-teal-dark: #2E5870; --scde-teal-100: #D8E5EC;
+  --scde-cream: #FAF7F0; --scde-alice: #EFF6FF;
+  --scde-ink: #1A2330; --scde-ink-muted: #4B5C70; --scde-line: #D7DEE6;
+  --scde-danger: #B3261E;
+  --font-display: 'Poppins', 'Aptos Display', 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', 'Aptos', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 20px;
+  --s-6: 24px; --s-8: 32px; --s-10: 40px;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: var(--font-body); color: var(--scde-ink); background: #E9ECF1; font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; padding: var(--s-6); }
+
+.sheet { max-width: 880px; margin: 0 auto; background: #fff; border: 1px solid var(--scde-line); border-radius: var(--r-lg); box-shadow: 0 8px 28px rgba(27,40,55,.08); overflow: hidden; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); color: var(--scde-slate-900); margin: 0 0 var(--s-2); line-height: 1.2; letter-spacing: -.005em; }
+h1 { font-size: 26px; font-weight: 700; }
+h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .14em; color: var(--scde-teal-dark); margin-bottom: var(--s-3); }
+h3 { font-size: 15px; font-weight: 600; }
+h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--scde-teal-dark); font-weight: 600; }
+p { margin: 0 0 var(--s-3); }
+a { color: var(--scde-teal-dark); }
+
+.head { background: var(--scde-slate-900); color: #fff; padding: var(--s-6) var(--s-8); border-bottom: 3px solid var(--scde-gold); display: grid; grid-template-columns: 1fr auto; gap: var(--s-4); align-items: center; }
+.head .eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--scde-gold); margin-bottom: 4px; }
+.head h1 { color: #fff; margin-bottom: 4px; font-size: 28px; }
+.head .sub { color: rgba(255,255,255,.78); font-size: 13px; }
+.head .meta { font-family: var(--font-display); text-align: right; font-size: 11px; color: rgba(255,255,255,.7); line-height: 1.6; }
+
+.audience-strip { background: var(--scde-cream); padding: var(--s-3) var(--s-8); font-size: 12px; color: var(--scde-slate-700); display: flex; gap: var(--s-4); flex-wrap: wrap; align-items: center; border-bottom: 1px solid var(--scde-line); }
+.audience-strip strong { color: var(--scde-slate-900); font-family: var(--font-display); }
+.dot { width: 4px; height: 4px; border-radius: 50%; background: var(--scde-ink-muted); display: inline-block; }
+
+.body { display: grid; grid-template-columns: 1.15fr 1fr; gap: 0; }
+.col { padding: var(--s-6) var(--s-8); }
+.col.left { border-right: 1px solid var(--scde-line); }
+.block { margin-bottom: var(--s-5); }
+.block:last-child { margin-bottom: 0; }
+.lede { font-size: 13.5px; color: var(--scde-ink); }
+
+/* Reporting days strip */
+.days { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-2); margin-top: var(--s-2); }
+.day { border: 1px solid var(--scde-line); border-radius: var(--r-sm); padding: var(--s-3); text-align: center; background: #fff; position: relative; }
+.day .n { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--scde-slate-900); line-height: 1; }
+.day .l { font-size: 10px; color: var(--scde-teal-dark); text-transform: uppercase; letter-spacing: .1em; margin-top: 4px; font-weight: 600; }
+.day.focus { border-color: var(--scde-gold); background: var(--scde-gold-100); }
+.day.focus::after { content: '★'; position: absolute; top: -8px; right: 6px; background: var(--scde-gold); color: var(--scde-slate-900); font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; }
+
+/* EFA vs AOW comparison */
+.efa-aow { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2); margin-top: var(--s-2); }
+.ea { border: 1px solid var(--scde-line); border-radius: var(--r-sm); padding: var(--s-3); background: #fff; font-size: 12px; line-height: 1.4; }
+.ea.gold { background: var(--scde-gold-100); border-color: #ECD4A6; }
+.ea h4 { color: var(--scde-teal-dark); font-size: 11px; margin-bottom: 2px; }
+.ea .lead { font-family: var(--font-display); font-weight: 600; color: var(--scde-slate-900); font-size: 13px; margin-bottom: 4px; }
+
+/* Panel stack mini */
+.panels { display: grid; gap: 4px; margin-top: var(--s-2); }
+.p-row { display: grid; grid-template-columns: 22px 1fr auto; gap: var(--s-2); align-items: center; padding: 6px var(--s-2); border: 1px solid var(--scde-line); border-radius: 4px; background: #fff; font-size: 12px; }
+.p-row .n { width: 18px; height: 18px; background: var(--scde-slate-900); color: var(--scde-gold); border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 10px; }
+.p-row .name { font-family: var(--font-display); font-weight: 600; color: var(--scde-slate-900); }
+.p-row .zoom { font-size: 9.5px; color: var(--scde-teal-dark); text-transform: uppercase; letter-spacing: .1em; font-family: var(--font-display); font-weight: 600; }
+
+.steps { display: grid; gap: var(--s-2); counter-reset: step; }
+.step { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; counter-increment: step; }
+.step::before { content: counter(step); width: 22px; height: 22px; background: var(--scde-slate-900); color: var(--scde-gold); border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 11px; flex: 0 0 22px; }
+.step .label { font-family: var(--font-display); font-weight: 600; color: var(--scde-slate-900); font-size: 13px; margin-bottom: 2px; }
+.step .label small { font-weight: 400; color: var(--scde-ink-muted); font-family: var(--font-body); }
+.step .help { font-size: 12px; color: var(--scde-ink-muted); margin: 0; }
+.step kbd { background: var(--scde-slate-100); border: 1px solid var(--scde-slate-200); border-radius: 4px; font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; padding: 1px 5px; color: var(--scde-slate-700); }
+
+.callout { background: var(--scde-alice); border-left: 3px solid var(--scde-teal); padding: var(--s-3) var(--s-4); border-radius: var(--r-sm); font-size: 12.5px; line-height: 1.5; }
+.callout.warn { background: var(--scde-gold-100); border-left-color: var(--scde-gold-dark); }
+.callout.danger { background: #FCE9E7; border-left-color: var(--scde-danger); }
+.callout h4 { color: var(--scde-teal-dark); font-size: 11px; margin-bottom: 4px; }
+.callout.warn h4 { color: var(--scde-gold-dark); }
+.callout.danger h4 { color: var(--scde-danger); }
+.callout p:last-child { margin-bottom: 0; }
+
+.caveats { list-style: none; padding: 0; margin: 0; }
+.caveats li { padding: var(--s-2) 0; border-bottom: 1px dashed var(--scde-line); font-size: 12.5px; line-height: 1.5; display: grid; grid-template-columns: 14px 1fr; gap: var(--s-2); }
+.caveats li:last-child { border-bottom: 0; padding-bottom: 0; }
+.caveats li::before { content: '⚠'; color: var(--scde-gold-dark); font-size: 12px; line-height: 1.5; }
+
+.lens-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); margin-top: var(--s-3); }
+.lens { border: 1px solid var(--scde-line); border-radius: var(--r-sm); padding: var(--s-3); background: #fff; font-size: 12.5px; line-height: 1.5; }
+.lens h4 { margin-bottom: 4px; font-size: 10.5px; letter-spacing: .14em; }
+.lens.district h4 { color: var(--scde-teal-dark); }
+.lens.principal h4 { color: var(--scde-gold-dark); }
+.lens p:last-child { margin-bottom: 0; }
+
+.foot { background: var(--scde-slate-100); padding: var(--s-5) var(--s-8); display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: var(--s-5); font-size: 11.5px; color: var(--scde-ink-muted); border-top: 1px solid var(--scde-line); line-height: 1.6; }
+.foot h4 { font-size: 10px; margin-bottom: var(--s-2); }
+.foot strong { color: var(--scde-slate-900); }
+.foot a { font-weight: 500; }
+.foot p { margin: 0; }
+
+.version { background: var(--scde-slate-900); color: rgba(255,255,255,.65); padding: 8px var(--s-8); font-size: 10.5px; display: flex; justify-content: space-between; font-family: var(--font-display); letter-spacing: .04em; text-transform: uppercase; }
+.version a { color: var(--scde-gold); text-decoration: none; }
+
+@media print {
+  body { background: #fff; padding: 0; }
+  .sheet { box-shadow: none; border: 0; border-radius: 0; max-width: none; }
+  .head, .foot, .audience-strip, .version { break-inside: avoid; }
+  .body { break-inside: avoid; }
+  @page { size: Letter; margin: 0.4in; }
+}
+@media (max-width: 720px) {
+  .body { grid-template-columns: 1fr; }
+  .col.left { border-right: 0; border-bottom: 1px solid var(--scde-line); }
+  .head, .foot { grid-template-columns: 1fr; text-align: left; }
+  .head .meta { text-align: left; }
+  .days { grid-template-columns: 1fr 1fr; }
+  .efa-aow { grid-template-columns: 1fr; }
+  .lens-pair { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<article class="sheet">
+
+  <header class="head">
+    <div>
+      <div class="eyebrow">Administrator Navigator · One-Page Reference</div>
+      <h1>Average Daily Membership (ADM)</h1>
+      <div class="sub">The foundational enrollment count for South Carolina school funding.</div>
+    </div>
+    <div class="meta">
+      v1.0 · 2026-05-20<br/>
+      Companion guide not included in this preview
+    </div>
+  </header>
+
+  <div class="audience-strip">
+    <strong>For:</strong>
+    <span>District finance &amp; data teams</span>
+    <span class="dot" aria-hidden="true"></span>
+    <span>Accountability coordinators</span>
+    <span class="dot" aria-hidden="true"></span>
+    <span>PowerSchool admins</span>
+    <span class="dot" aria-hidden="true"></span>
+    <span>Principals &amp; school leaders</span>
+  </div>
+
+  <div class="body">
+
+    <div class="col left">
+
+      <section class="block">
+        <h2>What it is</h2>
+        <p class="lede">
+          The ADM Dashboard surfaces your district's <strong>Education Finance Act (EFA)</strong> and
+          <strong>Add-on Weights (AOW)</strong> counts using the rules that drive South Carolina school funding.
+          It tells you, at each standard reporting day, how many funded students your district will count —
+          and how that breaks down by EFA code, school, grade, and student.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2>Four reporting days</h2>
+        <div class="days">
+          <div class="day"><div class="n">5</div><div class="l">Sanity check</div></div>
+          <div class="day focus"><div class="n">45</div><div class="l">Funding anchor</div></div>
+          <div class="day"><div class="n">90</div><div class="l">Mid-year</div></div>
+          <div class="day"><div class="n">135</div><div class="l">Second major</div></div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>EFA vs Add-on Weights</h2>
+        <div class="efa-aow">
+          <div class="ea">
+            <h4>EFA</h4>
+            <div class="lead">Base per-pupil count</div>
+            <div>Every enrolled student counted once. Drives the per-pupil base allocation.</div>
+          </div>
+          <div class="ea gold">
+            <h4>AOW</h4>
+            <div class="lead">Funded subgroups, weighted</div>
+            <div>Layered on top of EFA. Poverty, EL, students with disabilities, etc. Drives supplementary funding.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Dashboard anatomy — six stacked panels</h2>
+        <div class="panels">
+          <div class="p-row"><div class="n">1</div><div class="name">Filters (left sidebar)</div><div class="zoom">Controls</div></div>
+          <div class="p-row"><div class="n">2</div><div class="name">District Metrics — 4 stat cards</div><div class="zoom">Widest</div></div>
+          <div class="p-row"><div class="n">3</div><div class="name">Summary Report — ADM</div><div class="zoom">Widest</div></div>
+          <div class="p-row"><div class="n">4</div><div class="name">District Report (EFA / AOW / Comparison)</div><div class="zoom">District</div></div>
+          <div class="p-row"><div class="n">5</div><div class="name">School Report (EFA / AOW / Comparison)</div><div class="zoom">School</div></div>
+          <div class="p-row"><div class="n">6</div><div class="name">Student Membership Report</div><div class="zoom">Student</div></div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>How to use it — by lens</h2>
+        <div class="lens-pair">
+          <div class="lens district">
+            <h4>District lens</h4>
+            <p>Verify EFA and AOW counts before funding cycles lock in. Drill from district totals to schools to students to find anomalies. Export Day-45 snapshots for finance and audit.</p>
+          </div>
+          <div class="lens principal">
+            <h4>Principal lens</h4>
+            <p>Filter the School Report to your building. Confirm AOW flags are right (poverty, EL, gifted) — those drive the funding your school receives.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="col right">
+
+      <section class="block">
+        <h2>Quick steps</h2>
+        <div class="steps">
+          <div class="step">
+            <div>
+              <div class="label">Sign in <small>(portal.edanalytics.app)</small></div>
+              <p class="help">SCDE/district Microsoft account (SSO).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Open Administrator Navigator</div>
+              <p class="help">Click the <strong>Administrator Navigator</strong> tile.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Select ADM</div>
+              <p class="help">Top-level item in the left nav: <strong>Average Daily Membership (ADM)</strong>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Set required filters</div>
+              <p class="help">School Year → LEA Name → Day of School Year (try <kbd>45</kbd>) → <strong>Apply filters</strong>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Read the four stat cards</div>
+              <p class="help">EFA Total Days, EFA ADM, AOW Total Days, AOW ADM — your headline numbers.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Drill down the panel stack</div>
+              <p class="help">District → School → Student to find the source of any anomaly.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Export the Day-45 snapshot</div>
+              <p class="help">⋮ on any panel → <kbd>CSV</kbd> or <kbd>Excel</kbd>. <strong>Save it — data doesn't freeze.</strong></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="callout danger">
+          <h4>Most important caveat</h4>
+          <p style="margin-bottom:0"><strong>ADM data does NOT freeze after reporting days pass.</strong> If you need a point-in-time value for finance or audit, export the CSV/Excel on the reporting day and save it as your authoritative record. The dashboard is not your archive — your export is.</p>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="callout warn">
+          <h4>Other caveats</h4>
+          <ul class="caveats" style="margin-top:6px">
+            <li><span><strong>Year-format inconsistency.</strong> The Year filter may show single-year ("2026") vs other dashboards' "25-26" format. EA is standardizing.</span></li>
+            <li><span><strong>No 180-day filter yet.</strong> Useful for financial audits — under consideration based on user feedback.</span></li>
+            <li><span><strong>ADM ≠ raw enrollment.</strong> ADM averages student-days across a reporting period. A single-day PowerSchool roster pull won't match.</span></li>
+            <li><span><strong>EFA Total Days ≤ PowerSchool enrollment.</strong> EFA applies specific inclusion / exclusion rules. If EFA shows <em>more</em> than PowerSchool, submit a ticket.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="callout">
+          <h4>Two facts worth memorizing</h4>
+          <p style="margin-bottom:6px"><strong>The dashboard knows your specific 45th day.</strong> No need to translate calendar dates — pick the day number, it handles your district's calendar.</p>
+          <p style="margin-bottom:0"><strong>EFA and AOW are parallel calculations.</strong> EFA = base count, AOW = funded subgroups weighted on top. The four stat cards show both totals and both averages side by side.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div>
+      <h4>Get help</h4>
+      <p><strong>SCDE GPS team</strong><br/>
+      <a href="mailto:gps@ed.sc.gov">gps@ed.sc.gov</a></p>
+      <p style="margin-top:6px"><strong>Education Analytics</strong><br/>
+      <a href="https://support.edanalytics.org" target="_blank" rel="noopener">support.edanalytics.org</a></p>
+    </div>
+    <div>
+      <h4>Companion guides</h4>
+      <p>Companion guide not included in this preview</p>
+      <p>Companion guide not included in this preview</p>
+    </div>
+    <div>
+      <h4>About</h4>
+      <p>Produced by SCDE GPS team.<br/>
+      Based on EA office hours, 2025-10-13<br/>
+      and a SCDE-recorded de-identified walkthrough.</p>
+    </div>
+  </footer>
+
+  <div class="version">
+    <div>SCDE · Growing Pathways for Students · Administrator Navigator</div>
+    <div>Average Daily Membership · One-Page Reference v1.0 · 2026-05-20</div>
+  </div>
+</article>
+
+</body>
+</html>

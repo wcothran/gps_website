@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administrator Navigator · Early Learning Guide</title>
+<style>
+  :root{
+    /* ===== SCDE brand tokens (see DESIGN.md) ===== */
+    --brand-slate:#2F3D4C;
+    --brand-gold:#F1BA55;
+    --brand-teal:#43718B;
+    --brand-navy:#234058;
+    --brand-cream:#FFEDCC;
+    --brand-slate-light:#778BA5;
+    --brand-alice:#F0F8FF;
+
+    --paper:#FFFFFF;
+    --paper-alt:#F0F8FF;
+    --ink:#2F3D4C;
+    --ink-soft:#4B5B6B;
+    --ink-faint:#8496A6;
+    --route:#43718B;
+    --route-deep:#2F3D4C;
+    --route-tint:#E7EEF2;
+    --waypoint:#F1BA55;
+    --waypoint-tint:#FFEDCC;
+    --warn:#B3261E;
+    --warn-tint:#FBEAE9;
+    --line:#E1E6EB;
+    --shadow: 0 12px 32px -12px rgba(47,61,76,0.18);
+    --radius: 12px;
+    --content-pad: 4rem;
+
+    --font-display:'Poppins', sans-serif;
+    --font-sans:'Aptos', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Aptos',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.display{font-family:'Poppins',sans-serif;font-weight:600;letter-spacing:-0.01em;}
+  .mono{font-family:ui-monospace,'SF Mono',Menlo,monospace;letter-spacing:0.02em;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+
+  .eyebrow{
+    font-family:ui-monospace,'SF Mono',Menlo,monospace;
+    font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--route);font-weight:600;
+    display:flex;align-items:center;gap:0.5em;
+  }
+  .eyebrow::before{content:"";width:7px;height:7px;background:var(--waypoint);border-radius:50%;display:inline-block;flex-shrink:0;}
+
+  /* ===== Layout shell ===== */
+  .app{display:grid;grid-template-columns:272px 1fr;min-height:100vh;}
+
+  .railnav{
+    position:fixed;top:0;left:0;width:272px;height:100vh;
+    border-right:1px solid var(--line);background:var(--paper);
+    padding:2rem 1.5rem 2rem 2rem;display:flex;flex-direction:column;
+    overflow-y:auto;z-index:50;
+  }
+  .rail-brand{font-family:'Poppins',sans-serif;font-weight:600;font-size:1.05rem;line-height:1.3;margin-bottom:2.4rem;}
+  .rail-brand .gps{display:block;font-size:0.66rem;font-family:ui-monospace,'SF Mono',Menlo,monospace;letter-spacing:0.16em;color:var(--ink-faint);margin-bottom:0.4rem;font-weight:600;}
+  .rail-track{position:relative;padding-left:22px;flex:1;}
+  .rail-spine{position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line);border-radius:2px;}
+  .rail-progress{position:absolute;left:5px;top:6px;width:2px;background:var(--route);border-radius:2px;height:0%;transition:height .25s ease;}
+  .rail-stop{position:relative;display:block;font-size:0.86rem;color:var(--ink-soft);padding:0.5rem 0 0.5rem 0.9rem;line-height:1.3;transition:color .15s ease;}
+  .rail-stop::before{
+    content:"";position:absolute;left:-22px;top:calc(0.5rem + 0.55rem);
+    width:9px;height:9px;border-radius:50%;background:var(--paper);
+    border:2px solid var(--ink-faint);transform:translate(1px,-50%);transition:all .15s ease;
+  }
+  .rail-stop.sub{font-size:0.78rem;padding-left:1.6rem;color:var(--ink-faint);}
+  .rail-stop.sub::before{left:-22px;width:6px;height:6px;border-color:var(--ink-faint);}
+  .rail-stop:hover{color:var(--route-deep);}
+  .rail-stop.active{color:var(--route-deep);font-weight:600;}
+  .rail-stop.active::before{background:var(--route);border-color:var(--route);box-shadow:0 0 0 3px var(--route-tint);}
+  .rail-stop.sub.active::before{background:var(--waypoint);border-color:var(--waypoint);box-shadow:0 0 0 3px var(--waypoint-tint);}
+  .rail-foot{margin-top:1.5rem;padding-left:0.9rem;font-size:0.72rem;color:var(--ink-faint);line-height:1.5;}
+
+  main{grid-column:2;width:100%;padding:0 var(--content-pad) 6rem var(--content-pad);}
+
+  section{padding:6.5rem 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+
+  .section-head{margin-bottom:2.6rem;}
+  .section-head h2{font-size:2.3rem;margin-top:0.6rem;line-height:1.15;}
+  .section-lede{font-size:1.08rem;color:var(--ink-soft);max-width:760px;margin-top:1rem;line-height:1.6;}
+
+  /* ---- Hero ---- */
+  #hero{padding-top:5rem;padding-bottom:4.5rem;}
+  #hero h1{font-size:3.4rem;line-height:1.08;margin-top:1rem;}
+  #hero .sub{font-family:'Poppins',sans-serif;font-weight:400;font-style:italic;font-size:1.4rem;color:var(--route-deep);margin-top:0.6rem;}
+  #hero .lede{max-width:680px;font-size:1.1rem;color:var(--ink-soft);margin-top:1.4rem;line-height:1.65;}
+  .hero-cta{display:flex;gap:0.9rem;margin-top:2.4rem;flex-wrap:wrap;}
+  .btn{
+    font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.78rem;letter-spacing:0.04em;
+    padding:0.85rem 1.3rem;border-radius:8px;border:1px solid var(--route);
+    color:var(--route-deep);background:transparent;cursor:pointer;transition:all .15s ease;
+    display:inline-flex;align-items:center;gap:0.5em;
+  }
+  .btn:hover{background:var(--route-tint);}
+  .btn.solid{background:var(--route);color:#fff;}
+  .btn.solid:hover{background:var(--route-deep);}
+
+  .hero-tag{
+    display:inline-flex;align-items:center;gap:0.5rem;
+    font-size:0.72rem;font-family:ui-monospace,'SF Mono',Menlo,monospace;color:var(--route-deep);
+    background:var(--route-tint);padding:0.4rem 0.8rem;border-radius:999px;
+    margin-top:1.6rem;letter-spacing:0.03em;
+  }
+
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.8rem;max-width:1000px;}
+  .stat-card{background:var(--paper-alt);border-radius:var(--radius);padding:1.5rem 1.4rem;}
+  .stat-card .num{font-family:'Poppins',sans-serif;font-size:2rem;color:var(--route-deep);font-weight:600;}
+  .stat-card .label{font-size:0.85rem;color:var(--ink-soft);margin-top:0.3rem;line-height:1.4;}
+
+  /* ---- generic two column panel ---- */
+  .panel-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:2.6rem;align-items:start;}
+  .lens-list{list-style:none;max-width:760px;}
+  .lens-list li{padding:1rem 0;border-top:1px solid var(--line);}
+  .lens-list li:first-child{border-top:none;padding-top:0;}
+  .lens-list .l-name{font-family:'Poppins',sans-serif;font-weight:600;color:var(--route-deep);font-size:1rem;}
+  .lens-list p{font-size:0.87rem;color:var(--ink-soft);margin-top:0.35rem;line-height:1.5;}
+
+  .tag-row{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.8rem;}
+  .tag-row span{font-size:0.78rem;background:var(--paper);border:1px solid var(--line);padding:0.4rem 0.75rem;border-radius:999px;color:var(--ink-soft);}
+
+  .shot{border-radius:var(--radius);border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow);position:relative;background:var(--paper-alt);}
+  .shot img{width:100%;display:block;cursor:zoom-in;}
+  .shot-cap{
+    font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.68rem;color:var(--ink-faint);
+    padding:0.6rem 0.9rem;border-top:1px solid var(--line);background:var(--paper-alt);
+    display:flex;justify-content:space-between;gap:1rem;
+  }
+  .shot-cap .hint{color:var(--route);flex-shrink:0;}
+  @media (hover:hover){
+    .shot::after{
+      content:"⤢";position:absolute;top:0.7rem;right:0.7rem;width:28px;height:28px;border-radius:50%;
+      background:rgba(21,42,32,0.55);color:#fff;font-size:0.9rem;display:flex;align-items:center;justify-content:center;
+      opacity:0;transition:opacity .15s ease;pointer-events:none;
+    }
+    .shot:hover::after{opacity:1;}
+  }
+
+  .callout{margin-top:1.8rem;background:var(--waypoint-tint);border-radius:12px;padding:1.3rem 1.5rem;max-width:760px;}
+  .callout .c-label{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--waypoint);font-weight:600;}
+  .callout p{font-size:0.9rem;color:var(--ink);margin-top:0.5rem;line-height:1.55;}
+
+  .warn{margin-top:1.8rem;background:var(--warn-tint);border-radius:12px;padding:1.3rem 1.5rem;max-width:760px;}
+  .warn .c-label{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--warn);font-weight:600;}
+  .warn p{font-size:0.88rem;color:var(--ink);margin-top:0.5rem;line-height:1.55;}
+
+  .note-tag{
+    display:inline-flex;align-items:center;gap:0.5rem;margin-top:1.8rem;
+    font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.7rem;color:var(--ink-faint);
+    border:1px dashed var(--line);padding:0.6rem 0.9rem;border-radius:8px;
+  }
+
+  /* ---- Filter guide walkthrough (full-bleed showcase) ---- */
+  .filter-guide{margin-top:3.4rem;padding-top:3rem;border-top:1px dashed var(--line);}
+  .fg-head{margin-bottom:2rem;max-width:760px;}
+  .fg-head h3{font-size:1.6rem;margin-top:0.5rem;}
+  .fg-stage{
+    margin-left:calc(-1 * var(--content-pad));
+    margin-right:calc(-1 * var(--content-pad));
+    width:calc(100% + 2 * var(--content-pad));
+    background:var(--paper-alt);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .fg-frame{
+    position:relative;min-height:78vh;display:flex;align-items:center;justify-content:center;
+    padding:3vh 3vw;cursor:zoom-in;
+  }
+  .fg-frame img{
+    max-width:100%;max-height:76vh;width:auto;height:auto;object-fit:contain;
+    border-radius:10px;box-shadow:var(--shadow);background:#fff;
+  }
+  .fg-frame .fg-badge{
+    position:absolute;top:1.4rem;right:1.4rem;width:34px;height:34px;border-radius:50%;
+    background:rgba(21,42,32,0.6);color:#fff;font-size:1.05rem;display:flex;align-items:center;justify-content:center;
+    opacity:0;transition:opacity .15s ease;
+  }
+  .fg-frame:hover .fg-badge{opacity:1;}
+  .fg-bar{
+    display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.6rem;
+    padding:1.8rem var(--content-pad);background:var(--paper);
+  }
+  .fg-bar-info{max-width:640px;}
+  .fg-step-label{font-size:0.72rem;color:var(--waypoint);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.6rem;}
+  .fg-bar-info h4{font-family:'Poppins',sans-serif;font-size:1.35rem;color:var(--route-deep);line-height:1.3;}
+  .fg-bar-info p{font-size:0.92rem;color:var(--ink-soft);margin-top:0.6rem;line-height:1.6;}
+  .fg-bar-controls{display:flex;align-items:center;gap:1.2rem;flex-shrink:0;}
+  .fg-dots{display:flex;gap:0.5rem;}
+  .fg-dot{width:8px;height:8px;border-radius:50%;background:var(--line);border:none;cursor:pointer;padding:0;transition:background .15s ease, transform .15s ease;}
+  .fg-dot.active{background:var(--route);transform:scale(1.3);}
+  .fg-nav-btn{
+    font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.78rem;padding:0.7rem 1.2rem;border-radius:8px;
+    border:1px solid var(--line);background:var(--paper);color:var(--ink-soft);cursor:pointer;transition:all .15s ease;white-space:nowrap;
+  }
+  .fg-nav-btn:hover{border-color:var(--route);color:var(--route-deep);}
+  .fg-nav-btn:disabled{opacity:0.35;cursor:default;}
+  .fg-nav-btn:disabled:hover{border-color:var(--line);color:var(--ink-soft);}
+  @media (max-width:980px){
+    .fg-frame{min-height:46vh;padding:4vh 4vw;}
+    .fg-frame img{max-height:42vh;}
+    .fg-bar{flex-direction:column;align-items:stretch;}
+    .fg-bar-controls{justify-content:space-between;}
+  }
+
+  /* ---- grade code chips ---- */
+  .grade-chips{display:flex;gap:1rem;margin-top:1.4rem;flex-wrap:wrap;}
+  .grade-chip{
+    display:flex;align-items:center;gap:0.8rem;background:var(--paper);border:1px solid var(--line);
+    border-radius:12px;padding:0.9rem 1.2rem;
+  }
+  .grade-chip .g-code{
+    font-family:ui-monospace,'SF Mono',Menlo,monospace;font-weight:600;color:#fff;background:var(--route);
+    width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;
+  }
+  .grade-chip .g-label{font-size:0.85rem;color:var(--ink);font-weight:600;}
+  .grade-chip .g-sub{font-size:0.74rem;color:var(--ink-faint);}
+
+  /* ---- Assessment context cards (KRA / GOLD) ---- */
+  .assess-context{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-top:2.2rem;max-width:1000px;}
+  .ac-card{border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem 1.7rem;}
+  .ac-card .ac-name{font-family:'Poppins',sans-serif;font-weight:600;color:var(--route-deep);font-size:1.2rem;}
+  .ac-card .ac-tag{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.68rem;color:var(--waypoint);letter-spacing:0.06em;text-transform:uppercase;margin-top:0.3rem;display:block;}
+  .ac-card p{font-size:0.87rem;color:var(--ink-soft);margin-top:0.7rem;line-height:1.55;}
+
+  /* ---- Filtering-to-early-learning cards ---- */
+  .dash-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;margin-top:2.4rem;}
+  .dash-card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;}
+  .dash-card .dc-shot{background:var(--paper-alt);}
+  .dash-card .dc-shot img{width:100%;display:block;cursor:zoom-in;}
+  .dash-card .dc-body{padding:1.5rem 1.6rem;flex:1;display:flex;flex-direction:column;}
+  .dash-card .dc-eyebrow{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--waypoint);font-weight:600;}
+  .dash-card h4{font-family:'Poppins',sans-serif;font-size:1.15rem;color:var(--route-deep);margin-top:0.4rem;}
+  .dash-card p{font-size:0.86rem;color:var(--ink-soft);margin-top:0.6rem;line-height:1.55;flex:1;}
+  .dash-card.muted{background:var(--paper-alt);}
+  .dash-card.muted .dc-body{justify-content:center;}
+
+  @media (max-width:980px){
+    .dash-cards{grid-template-columns:1fr;}
+    .assess-context{grid-template-columns:1fr;}
+    .panel-grid{grid-template-columns:1fr;}
+    .stat-row{grid-template-columns:1fr;}
+  }
+
+  /* ---- Workshop / challenge cards ---- */
+  .challenge{
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:1.8rem 2rem;margin-top:1.3rem;position:relative;padding-left:3.8rem;
+  }
+  .challenge .ch-num{
+    position:absolute;left:1.7rem;top:1.85rem;font-family:ui-monospace,'SF Mono',Menlo,monospace;
+    color:var(--waypoint);font-weight:600;
+  }
+  .challenge h4{font-size:1.1rem;}
+  .challenge .ch-dash{
+    display:inline-block;margin-top:0.4rem;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.68rem;
+    letter-spacing:0.06em;text-transform:uppercase;color:var(--route);background:var(--route-tint);
+    padding:0.25rem 0.6rem;border-radius:6px;
+  }
+  .challenge p{font-size:0.9rem;color:var(--ink-soft);margin-top:0.7rem;line-height:1.6;max-width:760px;}
+  .challenge details{margin-top:1rem;}
+  .challenge summary{
+    cursor:pointer;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.74rem;color:var(--route-deep);
+    letter-spacing:0.03em;list-style:none;
+  }
+  .challenge summary::-webkit-details-marker{display:none;}
+  .challenge summary::before{content:"▸ ";}
+  .challenge details[open] summary::before{content:"▾ ";}
+  .challenge .ch-approach{
+    margin-top:0.8rem;background:var(--paper-alt);border-radius:10px;padding:1rem 1.2rem;
+    font-size:0.85rem;color:var(--ink-soft);line-height:1.6;max-width:720px;
+  }
+
+  /* ---- Discussion ---- */
+  .prompts{margin-top:2.2rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem;max-width:1000px;}
+  .prompt-card{background:var(--route-deep);color:#fff;border-radius:var(--radius);padding:1.8rem;font-family:'Poppins',sans-serif;font-size:1.1rem;line-height:1.4;}
+  .thanks{margin-top:3rem;font-family:'Poppins',sans-serif;font-size:1.6rem;color:var(--route-deep);}
+  footer{padding:2.5rem 0 1rem 0;font-size:0.75rem;color:var(--ink-faint);font-family:ui-monospace,'SF Mono',Menlo,monospace;}
+
+  /* ---- Fullscreen image viewer ---- */
+  .zoom-overlay{
+    position:fixed;inset:0;background:rgba(10,18,14,0.94);display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:500;cursor:zoom-out;
+  }
+  .zoom-overlay.show{opacity:1;pointer-events:auto;}
+  .zoom-overlay img{max-width:100vw;max-height:100vh;width:auto;height:auto;object-fit:contain;transform:scale(0.98);transition:transform .2s ease;}
+  .zoom-overlay.show img{transform:scale(1);}
+  .zoom-overlay .zoom-cap{position:absolute;bottom:1.6rem;left:0;right:0;text-align:center;color:rgba(255,255,255,0.7);font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.72rem;letter-spacing:0.04em;pointer-events:none;}
+  .zoom-close{
+    position:fixed;top:1.4rem;right:1.6rem;width:42px;height:42px;border-radius:50%;
+    background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);color:#fff;font-size:1.3rem;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:510;opacity:0;pointer-events:none;
+    transition:opacity .2s ease, background .15s ease;
+  }
+  .zoom-close:hover{background:rgba(255,255,255,0.22);}
+  .zoom-close.show{opacity:1;pointer-events:auto;}
+
+  /* ---- Mobile ---- */
+  .mobile-bar{display:none;}
+  @media (max-width: 980px){
+    .app{grid-template-columns:1fr;}
+    .railnav{position:fixed;top:0;left:0;width:82vw;max-width:320px;transform:translateX(-100%);transition:transform .25s ease;box-shadow:var(--shadow);}
+    .railnav.open{transform:translateX(0);}
+    main{grid-column:1;padding:0 1.3rem 4rem 1.3rem;}
+    :root{--content-pad:1.3rem;}
+    .mobile-bar{
+      display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--paper);
+      border-bottom:1px solid var(--line);padding:1rem 1.3rem;z-index:60;
+    }
+    .mobile-bar .brand-sm{font-family:'Poppins',sans-serif;font-weight:600;}
+    .mobile-bar button{background:var(--route);color:#fff;border:none;border-radius:7px;padding:0.5rem 0.8rem;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.75rem;}
+    #hero h1{font-size:2.3rem;}
+    .prompts{grid-template-columns:1fr;}
+    section{padding:3.5rem 0;}
+    .scrim{display:none;position:fixed;inset:0;background:rgba(21,42,32,0.4);z-index:45;}
+    .scrim.show{display:block;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  /* ===== SCDE logo lockups (replaces plain-text SCDE mentions) ===== */
+  .rail-logo{
+    display:block;
+    width:100%;
+    max-width:190px;
+    height:auto;
+    margin-bottom:0.6rem;
+  }
+  .foot-seal{
+    display:block;
+    width:44px;
+    height:44px;
+    margin:0 auto 0.6rem auto;
+    opacity:0.9;
+  }
+  footer{ text-align:center; }
+</style>
+<style>
+html{scroll-behavior:auto!important}.dashboard-questions{margin:20px 0 28px;padding:20px 0;border-top:1px solid #d8e3ea;border-bottom:1px solid #d8e3ea;color:#234058}.dashboard-questions h3{font-size:1.1rem;margin:0 0 10px}.dashboard-questions ul{padding-left:22px;line-height:1.7}.hub-return{display:inline-block;margin:16px;color:#234058;font-weight:700;text-underline-offset:3px}.rail-stop:focus-visible,.shot:focus-visible,.dc-shot:focus-visible,.fg-frame:focus-visible{outline:3px solid #125d9c;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+</style><style>@media(max-width:980px){.railnav:not(.open){visibility:hidden}.railnav.open{visibility:visible}}</style></head>
+<body><a class="hub-return" href="../../../../index.html#demos" target="_parent">← Return to Navigator Hub demos</a>
+
+<div class="mobile-bar">
+  <span class="brand-sm">Administrator Navigator · Early Learning</span>
+  <button id="railToggle">Menu</button>
+</div>
+<div class="scrim" id="scrim"></div>
+
+<div class="app">
+  <nav class="railnav" id="railnav">
+    <div class="rail-brand">
+      <span class="gps">ADMINISTRATOR NAVIGATOR</span>
+      Early Learning Guide
+    </div>
+    <div class="rail-track">
+      <div class="rail-spine"></div>
+      <div class="rail-progress" id="railProgress"></div>
+      <a class="rail-stop" data-target="hero">Overview</a>
+      <a class="rail-stop" data-target="metrics">Metrics Dashboard</a>
+      <a class="rail-stop" data-target="assessments">Early Learning Assessments</a>
+      <a class="rail-stop sub" data-target="assessment-filter-guide">↳ Filter Guide</a>
+      <a class="rail-stop" data-target="filtering">Filtering to Early Learning</a>
+      <a class="rail-stop" data-target="workshop">Workshop: Try It Yourself</a>
+      <a class="rail-stop" data-target="discussion">Discussion</a>
+    </div>
+    <div class="rail-foot"><img class="rail-logo" src="../../../guide-media/572a447729378847.webp" alt="South Carolina Department of Education">Administrator Navigator · Prepared for OIS</div>
+  </nav>
+
+  <main>
+
+    <section id="hero">
+      <div class="eyebrow">South Carolina Department of Education · Prepared for OIS</div>
+      <h1>Administrator Navigator</h1>
+      <div class="sub">Your one-stop shop for student success data</div>
+      <p class="lede">A focused look at Administrator Navigator through an early learning lens. This allows for continued filtering down to PreK and Kindergarten subsets across dashboards and visualizations.</p>
+      <div class="hero-tag">● Built for district level and school level administrators and educators.</div>
+      <div class="hero-cta">
+        <a class="btn solid" data-jump="metrics">See the Metrics Dashboard →</a>
+        <a class="btn" data-jump="assessments">See Early Learning Assessments →</a>
+        <a class="btn" data-jump="workshop">Jump to the workshop →</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="num">Select the data you need by the grade levels you need</div>
+          <div class="label">Ed-Fi uses the grade level -1 to represent PreK and 0 for Kindergarten</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">At a Glance to Student Level Detail</div>
+          <div class="label">Admin Navigator provides high level overviews while also diving into subgroup and student level data</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">1 filter away</div>
+          <div class="label">from an early-learning view of chronic absenteeism, ADA, and behavior</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="metrics"><div class="dashboard-questions"><h3>Questions to explore</h3><ul><li>What do district, school, and student views show for PreK or kindergarten?</li><li>Which students are behind the early learning metric I select?</li></ul></div>
+      <div class="section-head">
+        <div class="eyebrow">Metrics Dashboard</div>
+        <h2>District, school, and student-level metrics, scoped to PreK/K</h2>
+        <p class="section-lede">The same Metrics Dashboard that rolls up a district's full K-12 picture will filter down to just PreK and Kindergarten. The grade-level filter is the whole trick.</p>
+      </div>
+
+      <div class="panel-grid">
+        <div>
+          <ul class="lens-list">
+            <li><div class="l-name">Filtering</div><p>District of choice, school year, and grade level. Select <strong>-1</strong> and <strong>0</strong> to isolate PreK and Kindergarten respectively.</p></li>
+            <li><div class="l-name">Three views</div><p>District-level overview, school-level overview, and student-level overview, all filterable to the same grade band.</p></li>
+            <li><div class="l-name">Metrics included</div><p>% of students proficient (by subject, by gender), ISS/OSS rate, and student-group-level data broken out by gender, 504/non-504, and ELL status.</p></li>
+          </ul>
+          <div class="callout">
+            <div class="c-label">Grade level codes</div>
+            <div class="grade-chips">
+              <div class="grade-chip"><div class="g-code">-1</div><div><div class="g-label">Pre-Kindergarten</div><div class="g-sub">PreK</div></div></div>
+              <div class="grade-chip"><div class="g-code">0</div><div><div class="g-label">Kindergarten</div><div class="g-sub">K</div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="shot">
+          <img src="../../../guide-media/8c780afde2467153.webp" alt="Metrics Dashboard metric list table">
+          <div class="shot-cap"><span>District Metric List, Beaufort County School District</span><span class="hint">⤢ click to enlarge</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="assessments"><div class="dashboard-questions"><h3>Questions to explore</h3><ul><li>What do KRA or other early learning results show for the selected year and season?</li><li>How do results differ across schools or student groups?</li></ul></div>
+      <div class="section-head">
+        <div class="eyebrow">Assessment Dashboard · Early Learning</div>
+        <h2>Reading KRA, and other early learning assessments</h2>
+        <p class="section-lede">The Assessment Dashboard matches its assessment list to whatever a district testing/accountability coordinator loaded to Ed-Fi. For early learning, that typically means the Kindergarten Readiness Assessment (KRA). The walkthrough below shows how to filter down to it.</p>
+      </div>
+
+      <div class="assess-context">
+        <div class="ac-card">
+          <span class="ac-tag">Point-in-time</span>
+          <div class="ac-name">KRA: Kindergarten Readiness Assessment</div>
+          <p>South Carolina's kindergarten-entry readiness assessment, given once near the start of the K year. It's the assessment demonstrated in the walkthrough below, filtered by Test Season, Subject, and Test Grade.</p>
+        </div>
+        <div class="ac-card">
+          <span class="ac-tag">Ongoing / observational</span>
+          <div class="ac-name">GOLD: Teaching Strategies GOLD®</div>
+          <p>An ongoing, observation-based assessment some early-childhood programs use across the year rather than at a single point in time. If a district has GOLD data loaded to Ed-Fi, the same "Select Assessment" filter should surface it the way it surfaces KRA.</p>
+        </div>
+      </div>
+
+      <p class="section-lede">Once the filters are set, the dashboard shows the scale score distribution, school by school results, a sortable student level table, and performance broken out by student group.</p>
+
+      <div class="filter-guide" id="assessment-filter-guide">
+        <div class="fg-head">
+          <div class="eyebrow">Assessment Dashboard · Filter Guide</div>
+          <h3>Filtering the Assessment Dashboard, step by step</h3>
+          <p class="section-lede">The same filter panel works for any exam in Ed-Fi, KRA included. Step through it below, or click the screen to view it at full resolution.</p>
+        </div>
+        <div class="fg-stage">
+          <div class="fg-frame" id="fgFrame">
+            <img id="fgImg" src="" alt="Assessment Dashboard filter guide step">
+            <div class="fg-badge">⤢</div>
+          </div>
+          <div class="fg-bar">
+            <div class="fg-bar-info">
+              <div class="fg-step-label mono">Step <span id="fgStepNum">1</span> of <span id="fgStepTotal">5</span></div>
+              <h4 id="fgTitle"></h4>
+              <p id="fgDesc"></p>
+            </div>
+            <div class="fg-bar-controls">
+              <button class="fg-nav-btn" id="fgPrev">← Back</button>
+              <div class="fg-dots" id="fgDots"></div>
+              <button class="fg-nav-btn" id="fgNext">Next →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="filtering"><div class="dashboard-questions"><h3>Questions to explore</h3><ul><li>What does attendance look like when I scope the dashboard to early learning?</li><li>How can I carry the same PreK or kindergarten focus into another dashboard?</li></ul></div>
+      <div class="section-head">
+        <div class="eyebrow">Filtering to Early Learning</div>
+        <h2>Carrying the Early Chilhood Learning focus into the rest of Admin Navigator</h2>
+        <p class="section-lede">Administrator Navigator allows for the same subset to be filtered in every dashboard by selecting by grade level, and at times, by assessment. Continue to comb through the data knowing your selected class, group, or student has clean, populated data. </p>
+      </div>
+
+      <div class="dash-cards">
+        <div class="dash-card">
+          <div class="dc-shot"><img src="../../../guide-media/0e7425694fcbbab8.webp" alt="Chronic Absenteeism dashboard"></div>
+          <div class="dc-body">
+            <span class="dc-eyebrow">Chronic Absenteeism</span>
+            <h4>Compare chronic abscense rate across time</h4>
+            <p>Set the timeline slider to cover the year, months, weeks, or even days to compare chronic abscense rates at both a district and school level.</p>
+        </div>
+        <div class="dash-card">
+          <div class="dc-shot"><img src="../../../guide-media/c3b97aee25254c7c.webp" alt="Average Daily Attendance dashboard"></div>
+          <div class="dc-body">
+            <span class="dc-eyebrow">Distribution of Total Absences</span>
+            <h4>Break down attendances into the proportion of absence types</h4>
+            <p>This pie graph shows the proportion breakdown for all absence types for the district. We see unexcused absences run highest for this district, which may prompt administrators and principals to investigate why.</p>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="dc-shot"><img src="../../../guide-media/dd5097178bd1a0c2.webp" alt="Behavior dashboard detail views"></div>
+          <div class="dc-body">
+            <span class="dc-eyebrow">Behavior</span>
+            <h4>See early incidents by District, School, or Student</h4>
+            <p>Behavior's district-to-student drill-down provides an at a glance look at the incident and incident action stats for that school district.</p>
+          </div>
+        </div>
+        <div class="dash-card muted">
+          <div class="dc-body">
+            <span class="dc-eyebrow">Predictions &amp; Targets</span>
+            <h4>Not part of the early learning view</h4>
+            <p>AVT/MAT predictions are built on summative assessment history that starts at grade 3, so this dashboard has nothing to show at -1 / 0.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="workshop">
+      <div class="section-head">
+        <div class="eyebrow">Workshop</div>
+        <h2>Practice Use Cases</h2>
+        <p class="section-lede"> Work through these example use cases and ad-hoc questions. Try it yourself, and the look at the suggested approach for insights. </p>
+      </div>
+
+      <div class="challenge">
+        <div class="ch-num">01</div>
+        <h4>Find your highest-performing kindergartners</h4>
+        <span class="ch-dash mono">Assessment Dashboard</span>
+        <p>Filter to your LEA, the most recent school year, Assessment = Kindergarten Readiness, and Test Grade = K. Select all available Test Seasons first, then narrow down once you see what's populated. Then use the student-level detail view to sort by scale score, highest to lowest.</p>
+        <details>
+          <summary>Suggested approach</summary>
+          <div class="ch-approach">Set LEA Name and Assessment Year first. The assessment list won't populate until the LEA is chosen. Rather than guessing a single season, select all potential Test Seasons first and filter some out later if you need to — this trips people up less in practice. KRA is almost always administered in Fall (occasionally summer), since it's required to be given within the first 45 days of school for incoming Kindergartners. Once the seasons are set, open the student-level table and sort the scale-score column descending. Cross-check the top scorers' Performance Level to confirm it lines up.</div>
+        </details>
+      </div>
+
+      <div class="challenge">
+        <div class="ch-num">02</div>
+        <h4>Compare PreK/K discipline by gender</h4>
+        <span class="ch-dash mono">Metrics Dashboard</span>
+        <p>Set Grade Level to -1 and 0, use school year 2025-26 (2026-27 is still mostly empty since school just started for most districts), pick ISS/OSS Rate as the metric, and compare the two Birth Sex groups. Do early discipline rates already show a gap?</p>
+        <details>
+          <summary>Suggested approach</summary>
+          <div class="ch-approach">In the Metrics Dashboard, apply Grade Level -1 and 0 alongside your LEA and the 2025-26 school year. Select OSS Rate and ISS Rate under Metric Category, then open the School View and scroll down to the bottom table to compare the two Birth Sex groups — filtering to a specific school first can make the comparison easier to read.</div>
+        </details>
+      </div>
+
+      <div class="challenge">
+        <div class="ch-num">03</div>
+        <h4>Which early grades are missing the most school?</h4>
+        <span class="ch-dash mono">Chronic Absenteeism</span>
+        <p>Using the district-level Chronic Absenteeism view, filter Grade Level to -1 and 0, set the school year to 2025-26 (2026-27 is still mostly empty since school just started for most districts), and rank schools by chronic-absenteeism rate. Which building would you visit first?</p>
+        <details>
+          <summary>Suggested approach</summary>
+          <div class="ch-approach">Open Chronic Absenteeism's District lens, apply the -1 / 0 grade filter and the 2025-26 school year, and sort the school ranking by rate descending. Drop into the Student lens for the top school to see whether the absences cluster in PreK or Kindergarten specifically.</div>
+        </details>
+      </div>
+
+      <div class="challenge">
+        <div class="ch-num">04</div>
+        <h4>Check the gap for English Language Learners</h4>
+        <span class="ch-dash mono">Assessment Dashboard</span>
+        <p>In Performance by Student Group, compare KRA composite scores for ELL kindergartners against their non-ELL peers. Is the gap bigger or smaller than you expected?</p>
+        <details>
+          <summary>Suggested approach</summary>
+          <div class="ch-approach">With Assessment = Kindergarten Readiness and Subject = Composite already set, open the performance-by-student-group visualization and filter the subgroup to ELL, then compare against All Students or non-ELL directly.</div>
+        </details>
+      </div>
+
+      <div class="challenge">
+        <div class="ch-num">05</div>
+        <h4>Build a two-dashboard watch list</h4>
+        <span class="ch-dash mono">Assessment + Metrics Dashboard</span>
+        <p>Pull your lowest KRA composite scorers from the Assessment Dashboard, then check the same students' ISS/OSS rate in the Metrics Dashboard. Do the same names show up in both lists?</p>
+        <details>
+          <summary>Suggested approach</summary>
+          <div class="ch-approach">Sort the Assessment Dashboard's student-level table ascending by scale score to get your lowest scorers, note the names or IDs, then switch to the Metrics Dashboard's Student View, filtered to -1 / 0, and look up the same students under ISS/OSS Rate. Overlap is the interesting finding either way, so flag it for the group.</div>
+        </details>
+      </div>
+    </section>
+
+    <section id="discussion">
+      <div class="section-head">
+        <div class="eyebrow">Discussion</div>
+        <h2>Where could this fit into OIS's early learning work?</h2>
+      </div>
+      <div class="prompts">
+        <div class="prompt-card">Which of these five problems felt closest to something your team already does by hand?</div>
+        <div class="prompt-card">Beyond KRA, which early learning assessments, GOLD or otherwise, would you want filtered the same way?</div>
+      </div>
+      <div class="thanks">Thank you.</div>
+    </section>
+
+    <footer>
+      <img class="foot-seal" src="../../../guide-media/0546904112daad16.webp" alt="South Carolina Department of Education seal">
+      South Carolina Department of Education · Administrator Navigator · Prepared for OIS · Early Learning Focus
+    </footer>
+  </main>
+</div>
+
+<div class="zoom-overlay" id="zoomOverlay">
+  <img id="zoomImg" src="" alt="Enlarged dashboard view">
+  <div class="zoom-cap" id="zoomCap"></div>
+</div>
+<button class="zoom-close" id="zoomClose" aria-label="Close">×</button>
+
+<script>
+  // ---- Rail nav clicks / smooth scroll ----
+  var railStops = document.querySelectorAll('.rail-stop');
+  railStops.forEach(function(stop){
+    stop.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.getElementById(stop.dataset.target);
+      if(target) target.scrollIntoView({behavior:'auto', block:'start'});
+      closeMobileNav();
+    });
+  });
+  document.querySelectorAll('[data-jump]').forEach(function(el){
+    el.addEventListener('click', function(){
+      var target = document.getElementById(el.dataset.jump);
+      if(target) target.scrollIntoView({behavior:'auto', block:'start'});
+    });
+  });
+
+  // ---- Scrollspy ----
+  var sectionIds = ['hero','metrics','assessments','filtering','workshop','discussion'];
+  var sectionEls = sectionIds.map(function(id){ return document.getElementById(id); });
+  var railProgress = document.getElementById('railProgress');
+  var spine = document.querySelector('.rail-spine');
+
+  function onScroll(){
+    var scrollPos = window.scrollY + window.innerHeight * 0.3;
+    var activeIdx = 0;
+    sectionEls.forEach(function(el, i){
+      if(el && el.offsetTop <= scrollPos) activeIdx = i;
+    });
+    var activeId = sectionIds[activeIdx];
+    railStops.forEach(function(stop){
+      if(stop.classList.contains('sub')) return; // handled separately below
+      stop.classList.toggle('active', stop.dataset.target === activeId);
+    });
+    var fgSection = document.getElementById('assessment-filter-guide');
+    if(fgSection){
+      var r = fgSection.getBoundingClientRect();
+      var fgVisible = r.top < window.innerHeight * 0.6 && r.bottom > window.innerHeight * 0.15;
+      document.querySelector('.rail-stop.sub[data-target="assessment-filter-guide"]').classList.toggle('active', fgVisible);
+    }
+    var docHeight = document.body.scrollHeight - window.innerHeight;
+    var pct = Math.min(100, Math.max(0, (window.scrollY / docHeight) * 100));
+    railProgress.style.height = pct + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  // ---- Mobile nav ----
+  var railnav = document.getElementById('railnav');
+  var scrim = document.getElementById('scrim');
+  var railToggle = document.getElementById('railToggle');
+  function closeMobileNav(){ railnav.classList.remove('open'); scrim.classList.remove('show'); }
+  if(railToggle){
+    railToggle.addEventListener('click', function(){
+      railnav.classList.toggle('open');
+      scrim.classList.toggle('show');
+    });
+  }
+  scrim.addEventListener('click', closeMobileNav);
+
+  // ---- Click-to-fullscreen image viewer ----
+  var zoomOverlay = document.getElementById('zoomOverlay');
+  var zoomImg = document.getElementById('zoomImg');
+  var zoomCap = document.getElementById('zoomCap');
+  var zoomClose = document.getElementById('zoomClose');
+
+  function openFullscreen(src, alt, caption){
+    zoomImg.src = src;
+    zoomImg.alt = alt || '';
+    zoomCap.textContent = caption || alt || '';
+    zoomOverlay.classList.add('show');
+    zoomClose.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeFullscreen(){
+    zoomOverlay.classList.remove('show');
+    zoomClose.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.shot, .dc-shot').forEach(function(shot){
+    var img = shot.querySelector('img');
+    if(!img) return;
+    var capEl = shot.querySelector('.shot-cap span');
+    shot.addEventListener('click', function(){
+      openFullscreen(img.src, img.alt, capEl ? capEl.textContent : img.alt);
+    });
+  });
+
+  zoomOverlay.addEventListener('click', closeFullscreen);
+  zoomClose.addEventListener('click', function(e){ e.stopPropagation(); closeFullscreen(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeFullscreen(); });
+
+  // ---- Filter guide walkthrough carousel ----
+  var fgSteps = [
+    {
+      img: "../../../guide-media/1e8325a416e943d7.webp",
+      title: "Select Assessment Year",
+      desc: "Choose the school year for the data you're looking for. The panel lists recent years back to 2022-23."
+    },
+    {
+      img: "../../../guide-media/6aa62abe25891984.webp",
+      title: "Select District Name",
+      desc: "Choose your school district, or select multiple districts at once to compare them against each other."
+    },
+    {
+      img: "../../../guide-media/740f51531140e9cc.webp",
+      title: "Select Test Season",
+      desc: "Select all the potential test seasons first, then filter out the test seasons you do not need."
+    },
+    {
+      img: "../../../guide-media/3a11b4bfabacdd45.webp",
+      title: "Select Assessment",
+      desc: "Filter or search the full assessment list for the specific exam you're looking for, from ACCESS for ELLs and the ACT to Advanced Placement, EOCEP, and myIGDIs."
+    },
+    {
+      img: "../../../guide-media/a3f37faadb4c19a1.webp",
+      title: "Select Subject, Test Grade, and Student Group",
+      desc: "Narrow to a subject and the grade the testers are in, then select any Student Group (race, sex, 504 status, EL status, poverty, gifted & talented, or homeless status) for further detail."
+    }
+  ];
+  var fgIndex = 0;
+  var fgImg = document.getElementById('fgImg');
+  var fgTitle = document.getElementById('fgTitle');
+  var fgDesc = document.getElementById('fgDesc');
+  var fgStepNum = document.getElementById('fgStepNum');
+  var fgDots = document.getElementById('fgDots');
+  var fgPrev = document.getElementById('fgPrev');
+  var fgNext = document.getElementById('fgNext');
+  var fgFrame = document.getElementById('fgFrame');
+
+  if(fgFrame){
+    fgSteps.forEach(function(_, i){
+      var dot = document.createElement('button');
+      dot.className = 'fg-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to step ' + (i+1));
+      dot.addEventListener('click', function(){ renderFg(i); });
+      fgDots.appendChild(dot);
+    });
+
+    var renderFg = function(i){
+      fgIndex = Math.max(0, Math.min(fgSteps.length - 1, i));
+      var step = fgSteps[fgIndex];
+      fgImg.src = step.img;
+      fgImg.alt = step.title;
+      fgTitle.textContent = step.title;
+      fgDesc.textContent = step.desc;
+      fgStepNum.textContent = fgIndex + 1;
+      fgDots.querySelectorAll('.fg-dot').forEach(function(d, idx){
+        d.classList.toggle('active', idx === fgIndex);
+      });
+      fgPrev.disabled = fgIndex === 0;
+      fgNext.disabled = fgIndex === fgSteps.length - 1;
+    };
+
+    fgPrev.addEventListener('click', function(){ renderFg(fgIndex - 1); });
+    fgNext.addEventListener('click', function(){ renderFg(fgIndex + 1); });
+    fgFrame.addEventListener('click', function(){
+      var step = fgSteps[fgIndex];
+      openFullscreen(fgImg.src, step.title, 'Step ' + (fgIndex+1) + ' of ' + fgSteps.length + ': ' + step.title);
+    });
+
+    renderFg(0);
+  }
+</script>
+<script>
+// These local links remain usable in downloaded guides and in the Hub viewer.
+var lastImageFocus;
+railStops.forEach(function(stop){stop.href='#'+stop.dataset.target;});
+document.querySelectorAll('.shot, .dc-shot, .fg-frame').forEach(function(shot){
+ shot.tabIndex=0;shot.setAttribute('role','button');shot.setAttribute('aria-label','Enlarge '+(shot.querySelector('img')?.alt||'dashboard screenshot'));
+ shot.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();shot.click();}});
+});
+var originalOpen=openFullscreen,originalClose=closeFullscreen;
+openFullscreen=function(src,alt,caption){lastImageFocus=document.activeElement;originalOpen(src,alt,caption);zoomOverlay.setAttribute('role','dialog');zoomOverlay.setAttribute('aria-modal','true');zoomOverlay.setAttribute('aria-label','Enlarged dashboard screenshot');zoomClose.tabIndex=0;zoomClose.focus();};
+closeFullscreen=function(){var wasOpen=zoomOverlay.classList.contains('show');originalClose();if(wasOpen&&lastImageFocus)lastImageFocus.focus();};
+document.addEventListener('keydown',function(e){if(zoomOverlay.classList.contains('show')&&e.key==='Tab'){e.preventDefault();zoomClose.focus();}});
+</script><script>
+function syncRailToggle(){if(railToggle){railToggle.setAttribute('aria-controls','railnav');railToggle.setAttribute('aria-expanded',String(railnav.classList.contains('open')));}}
+var originalCloseNav=closeMobileNav;closeMobileNav=function(){originalCloseNav();syncRailToggle();};
+if(railToggle)railToggle.addEventListener('click',syncRailToggle);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&railnav.classList.contains('open')){closeMobileNav();railToggle.focus();}});syncRailToggle();
+</script></body>
+</html>

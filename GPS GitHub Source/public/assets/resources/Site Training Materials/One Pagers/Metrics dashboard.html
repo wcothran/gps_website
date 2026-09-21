@@ -1,0 +1,602 @@
+<!doctype html>
+<!-- v1.1 · 2026-05-14 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Metrics Dashboard · One-Page Reference · Administrator Navigator · SCDE</title>
+<meta name="description" content="A one-page reference for the Metrics Dashboard inside Administrator Navigator. South Carolina Department of Education." />
+<style>
+:root {
+  --scde-slate:        #2F3D4C;
+  --scde-slate-700:    #243140;
+  --scde-slate-900:    #1B2837;
+  --scde-slate-200:    #E5EAF0;
+  --scde-slate-100:    #F2F5F9;
+  --scde-gold:         #F1BA55;
+  --scde-gold-dark:    #C99224;
+  --scde-gold-100:     #FCEFD3;
+  --scde-teal:         #43718B;
+  --scde-teal-dark:    #2E5870;
+  --scde-teal-100:     #D8E5EC;
+  --scde-cream:        #FAF7F0;
+  --scde-alice:        #EFF6FF;
+  --scde-ink:          #1A2330;
+  --scde-ink-muted:    #4B5C70;
+  --scde-line:         #D7DEE6;
+
+  --font-display: 'Poppins', 'Aptos Display', 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif;
+  --font-body:    'Inter', 'Aptos', 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px; --s-5: 20px;
+  --s-6: 24px; --s-8: 32px; --s-10: 40px;
+
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-family: var(--font-body);
+  color: var(--scde-ink);
+  background: #E9ECF1;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  padding: var(--s-6);
+}
+
+/* Letter-ish sheet, centered. ~8.5 x 11 ratio at screen width, scales for print. */
+.sheet {
+  max-width: 880px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--scde-line);
+  border-radius: var(--r-lg);
+  box-shadow: 0 8px 28px rgba(27,40,55,.08);
+  overflow: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--scde-slate-900);
+  margin: 0 0 var(--s-2);
+  line-height: 1.2;
+  letter-spacing: -.005em;
+}
+h1 { font-size: 26px; font-weight: 700; }
+h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .14em; color: var(--scde-teal-dark); margin-bottom: var(--s-3); }
+h3 { font-size: 15px; font-weight: 600; }
+h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--scde-teal-dark); font-weight: 600; }
+p { margin: 0 0 var(--s-3); }
+
+a { color: var(--scde-teal-dark); }
+
+/* HEADER */
+.head {
+  background: var(--scde-slate-900);
+  color: #fff;
+  padding: var(--s-6) var(--s-8);
+  border-bottom: 3px solid var(--scde-gold);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s-4);
+  align-items: center;
+}
+.head .eyebrow {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--scde-gold);
+  margin-bottom: 4px;
+}
+.head h1 { color: #fff; margin-bottom: 4px; font-size: 28px; }
+.head .sub { color: rgba(255,255,255,.78); font-size: 13px; }
+.head .meta {
+  font-family: var(--font-display);
+  text-align: right;
+  font-size: 11px;
+  color: rgba(255,255,255,.7);
+  line-height: 1.6;
+}
+.head .meta .badge {
+  display: inline-block;
+  background: var(--scde-gold);
+  color: var(--scde-slate-900);
+  font-weight: 700;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  letter-spacing: .08em;
+}
+
+/* AUDIENCE STRIP */
+.audience-strip {
+  background: var(--scde-cream);
+  padding: var(--s-3) var(--s-8);
+  font-size: 12px;
+  color: var(--scde-slate-700);
+  display: flex;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  align-items: center;
+  border-bottom: 1px solid var(--scde-line);
+}
+.audience-strip strong { color: var(--scde-slate-900); font-family: var(--font-display); }
+.dot { width: 4px; height: 4px; border-radius: 50%; background: var(--scde-ink-muted); display: inline-block; }
+
+/* BODY GRID */
+.body {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 0;
+}
+.col {
+  padding: var(--s-6) var(--s-8);
+}
+.col.left {
+  border-right: 1px solid var(--scde-line);
+}
+
+.block { margin-bottom: var(--s-5); }
+.block:last-child { margin-bottom: 0; }
+
+.lede { font-size: 13.5px; color: var(--scde-ink); }
+
+/* category grid */
+.cat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+.cat {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  background: var(--scde-slate-100);
+  border: 1px solid var(--scde-slate-200);
+  border-radius: var(--r-sm);
+  padding: 6px 10px;
+  font-size: 12.5px;
+  color: var(--scde-slate-700);
+  line-height: 1.2;
+}
+.cat span.ico {
+  width: 18px;
+  height: 18px;
+  background: var(--scde-teal-100);
+  color: var(--scde-teal-dark);
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  flex: 0 0 18px;
+}
+
+/* views */
+.views { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s-2); }
+.view {
+  border: 1px solid var(--scde-line);
+  border-radius: var(--r-sm);
+  padding: var(--s-3);
+  font-size: 12px;
+  line-height: 1.4;
+  position: relative;
+  background: #fff;
+}
+.view.default {
+  border-color: var(--scde-gold);
+  background: var(--scde-gold-100);
+}
+.view .name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--scde-slate-900);
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+.view .zoom {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--scde-teal-dark);
+  margin-bottom: 2px;
+  font-weight: 600;
+}
+.view.default::after {
+  content: 'Default';
+  position: absolute;
+  top: -8px;
+  right: 6px;
+  background: var(--scde-gold);
+  color: var(--scde-slate-900);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: 2px 6px;
+  border-radius: 999px;
+}
+
+/* steps */
+.steps {
+  display: grid;
+  gap: var(--s-2);
+  counter-reset: step;
+}
+.step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s-3);
+  align-items: start;
+  counter-increment: step;
+}
+.step::before {
+  content: counter(step);
+  width: 22px; height: 22px;
+  background: var(--scde-slate-900);
+  color: var(--scde-gold);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 11px;
+  flex: 0 0 22px;
+}
+.step .label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--scde-slate-900);
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+.step .label small { font-weight: 400; color: var(--scde-ink-muted); font-family: var(--font-body); }
+.step .help {
+  font-size: 12px;
+  color: var(--scde-ink-muted);
+  margin: 0;
+}
+.step kbd {
+  background: var(--scde-slate-100);
+  border: 1px solid var(--scde-slate-200);
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  padding: 1px 5px;
+  color: var(--scde-slate-700);
+}
+
+/* callout */
+.callout {
+  background: var(--scde-alice);
+  border-left: 3px solid var(--scde-teal);
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-sm);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.callout.warn {
+  background: var(--scde-gold-100);
+  border-left-color: var(--scde-gold-dark);
+}
+.callout h4 {
+  color: var(--scde-teal-dark);
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+.callout.warn h4 { color: var(--scde-gold-dark); }
+.callout p:last-child { margin-bottom: 0; }
+
+/* caveat list */
+.caveats { list-style: none; padding: 0; margin: 0; }
+.caveats li {
+  padding: var(--s-2) 0;
+  border-bottom: 1px dashed var(--scde-line);
+  font-size: 12.5px;
+  line-height: 1.5;
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: var(--s-2);
+}
+.caveats li:last-child { border-bottom: 0; padding-bottom: 0; }
+.caveats li::before {
+  content: '⚠';
+  color: var(--scde-gold-dark);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* audience-conditional headlines (handled via lens chips in print/embed) */
+.lens-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-3);
+  margin-top: var(--s-3);
+}
+.lens {
+  border: 1px solid var(--scde-line);
+  border-radius: var(--r-sm);
+  padding: var(--s-3);
+  background: #fff;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.lens h4 {
+  margin-bottom: 4px;
+  font-size: 10.5px;
+  letter-spacing: .14em;
+}
+.lens.district h4 { color: var(--scde-teal-dark); }
+.lens.principal h4 { color: var(--scde-gold-dark); }
+.lens p:last-child { margin-bottom: 0; }
+
+/* footer */
+.foot {
+  background: var(--scde-slate-100);
+  padding: var(--s-5) var(--s-8);
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: var(--s-5);
+  font-size: 11.5px;
+  color: var(--scde-ink-muted);
+  border-top: 1px solid var(--scde-line);
+  line-height: 1.6;
+}
+.foot h4 {
+  font-size: 10px;
+  margin-bottom: var(--s-2);
+}
+.foot strong { color: var(--scde-slate-900); }
+.foot a { font-weight: 500; }
+.foot p { margin: 0; }
+
+/* version line */
+.version {
+  background: var(--scde-slate-900);
+  color: rgba(255,255,255,.65);
+  padding: 8px var(--s-8);
+  font-size: 10.5px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-display);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.version a { color: var(--scde-gold); text-decoration: none; }
+
+/* print: single page */
+@media print {
+  body { background: #fff; padding: 0; }
+  .sheet { box-shadow: none; border: 0; border-radius: 0; max-width: none; }
+  .head, .foot, .audience-strip, .version { break-inside: avoid; }
+  .body { break-inside: avoid; }
+  @page { size: Letter; margin: 0.4in; }
+}
+
+/* small viewport */
+@media (max-width: 720px) {
+  .body { grid-template-columns: 1fr; }
+  .col.left { border-right: 0; border-bottom: 1px solid var(--scde-line); }
+  .head, .foot { grid-template-columns: 1fr; text-align: left; }
+  .head .meta { text-align: left; }
+  .views { grid-template-columns: 1fr; }
+  .cat-grid { grid-template-columns: 1fr; }
+  .lens-pair { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<article class="sheet">
+
+  <header class="head">
+    <div>
+      <div class="eyebrow">Administrator Navigator · One-Page Reference</div>
+      <h1>Metrics Dashboard</h1>
+      <div class="sub">Current-year accountability metrics for SC district &amp; school leaders.</div>
+    </div>
+    <div class="meta">
+      v1.1 · 2026-05-14
+    </div>
+  </header>
+
+  <div class="audience-strip">
+    <strong>For:</strong>
+    <span>District accountability staff &amp; data coordinators</span>
+    <span class="dot" aria-hidden="true"></span>
+    <span>Principals &amp; school leadership teams</span>
+    <span class="dot" aria-hidden="true"></span>
+    <span>SCDE program-office analysts</span>
+  </div>
+
+  <div class="body">
+
+    <!-- LEFT COLUMN -->
+    <div class="col left">
+
+      <section class="block">
+        <h2>What it is</h2>
+        <p class="lede">
+          The Metrics Dashboard is the front door of Administrator Navigator for School Report Card data.
+          It surfaces <strong>most of the metrics from the SC School Report Cards</strong> using current-year data —
+          before the report card cycle locks in. Built for district accountability staff who need visibility
+          at any point in the year.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2>Nine metric categories</h2>
+        <div class="cat-grid">
+          <div class="cat"><span class="ico">📚</span>Academic Achievement</div>
+          <div class="cat"><span class="ico">🎓</span>College &amp; Career Readiness</div>
+          <div class="cat"><span class="ico">🧑‍🎓</span>Graduation Rate</div>
+          <div class="cat"><span class="ico">📈</span>High School Student Success</div>
+          <div class="cat"><span class="ico">⏱️</span>On-Track to Graduate</div>
+          <div class="cat"><span class="ico">🛠️</span>Prep for Success</div>
+          <div class="cat"><span class="ico">🏫</span>School Environment</div>
+          <div class="cat"><span class="ico">📊</span>Student Progress</div>
+          <div class="cat"><span class="ico">📅</span>Multilingual Learners' Progress</div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Three views</h2>
+        <div class="views">
+          <div class="view default">
+            <div class="zoom">Widest</div>
+            <div class="name">District View</div>
+            <div>Holistic: "How are we doing overall, by each metric?"</div>
+          </div>
+          <div class="view">
+            <div class="zoom">School</div>
+            <div class="name">School View</div>
+            <div>Per-school: "How does each school compare?"</div>
+          </div>
+          <div class="view">
+            <div class="zoom">Student</div>
+            <div class="name">Student View</div>
+            <div>Roster: "How is each student doing?"</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>How to use it — by lens</h2>
+        <div class="lens-pair">
+          <div class="lens district">
+            <h4>District lens</h4>
+            <p>Move from LEA/District name → school distribution → cross-school comparison. Use exports for board-ready charts and to brief building leaders with consistent data.</p>
+          </div>
+          <div class="lens principal">
+            <h4>Principal lens</h4>
+            <p>Start in School View. Compare your subgroup splits to the district. Use Previous Year Value to see whether your gap is widening or closing — and to anchor MTSS conversations.</p>
+          </div>
+        </div>
+      </section>
+
+   <section class="block">
+  <h2>What metrics and KPIs to look out for</h2>
+  <div class="lens-pair">
+    <div class="metric-breakdown">
+      <h4>Profiency Percentages</h4>
+      <p>Shows the % of students that pass certain exam thresholds, proficiency scores, and other relevant metrics.</p>
+    </div>
+    <!-- add more .metric-breakdown blocks here the same way you added multiple .lens divs -->
+  </div>
+</section>
+    
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col right">
+
+      <section class="block">
+        <h2>Quick steps</h2>
+        <div class="steps">
+          <div class="step">
+            <div>
+              <div class="label">Sign in <small>(portal.edanalytics.app)</small></div>
+              <p class="help">Use your SCDE/district account (SSO).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Open Administrator Navigator</div>
+              <p class="help">Click the <strong>Administrator Navigator</strong> tile in the app launcher.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Select the dashboard</div>
+              <p class="help">In the left menu, expand <strong>Accountability</strong> and select <strong>Metrics Dashboard</strong>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Set filters &amp; apply</div>
+              <p class="help">School Year → Metric Category → District/School Level Metric → <strong>Apply Filters</strong>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Move through the three views</div>
+              <p class="help">District → School → Student to zoom from rollup to roster.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Export when you need to share</div>
+              <p class="help">⋮ (top-right of any panel) → <kbd>CSV</kbd> or <kbd>Excel</kbd>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="callout warn">
+          <h4>Important caveats</h4>
+          <ul class="caveats" style="margin-top:6px">
+            <li><span><strong>Not 1:1 with the report card.</strong> Historical non Ed-Fi data and manual SCDE corrections can cause numbers to differ from official report card values.</span></li>
+            <li><span><strong>Thresholds are not annualized.</strong> The current year's rules (e.g., SAT 1040 for 2025-26) are applied retroactively to every year shown.</span></li>
+            <li><span><strong>School Environment metrics differ from standalone dashboards.</strong> Chronic Absenteeism and ADA use accountability-lens inclusion rules here; numbers will diverge slightly from the dedicated Chronic Absenteeism / ADA dashboards by design.</span></li>
+            <li><span><strong>On-Track uses earned credit only.</strong> In-progress credits are excluded — expect mid-year values to look lower until second-semester credits are finalized.</span></li>
+            <li><span><strong>Not all data are available all year.</strong> Categories light up at different points as data arrives (e.g., SAT scores don't land until July at the earliest). Student Climate Survey is not yet included.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="callout">
+          <h4>One worked example to anchor on</h4>
+          <p>
+            Pick a metric → set <em>Subgroup Category = Birth Sex</em> → look at the gap in District View → drop to School View
+            to find which schools drive the gap → drop to Student View to investigate. The same District → School → Student
+            funnel works for every subgroup the dashboard supports.
+          </p>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="callout">
+          <h4>Two facts worth memorizing</h4>
+          <p style="margin-bottom:6px"><strong>PowerSchool correction → dashboard the next day.</strong> Monday fix → Tuesday visible. That changes data-quality work from a quarterly project to a weekly habit.</p>
+          <p style="margin-bottom:0"><strong>"NA" usually means suppression.</strong> Cell counts too small to display under student-privacy rules. Submit a ticket if it shows up unexpectedly.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div>
+      <h4>Get help</h4>
+      <p><strong>SCDE District &amp; Technology Services</strong><br/>
+      <a href="mailto:gps@ed.sc.gov">gps@ed.sc.gov</a></p>
+      <p style="margin-top:6px"><strong>Education Analytics</strong><br/>
+      <a href="https://support.edanalytics.org" target="_blank" rel="noopener">support.edanalytics.org</a></p>
+    </div>
+    <div>
+      <h4>Companion guides</h4>
+      <p>Companion guide not included in this preview</p>
+      <p><a href="https://portal.edanalytics.app/" target="_blank" rel="noopener">Sign in: portal.edanalytics.app</a></p>
+    </div>
+    <div>
+      <h4>About</h4>
+      <p>Produced by SCDE GPS team.<br/>
+      Based on EA office hours, 2026-02-23.<br/>
+      Part of the GPS ecosystem training set.</p>
+    </div>
+  </footer>
+
+  <div class="version">
+    <div>SCDE · Growing Pathways for Students · Administrator Navigator</div>
+    <div>Metrics Dashboard · One-Page Reference v1.1 · 2026-05-14</div>
+  </div>
+</article>
+
+</body>
+</html>

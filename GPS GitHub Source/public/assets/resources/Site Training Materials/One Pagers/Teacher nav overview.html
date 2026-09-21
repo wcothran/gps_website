@@ -1,0 +1,281 @@
+<!doctype html>
+<!-- v1.0 · 2026-06-15 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Teacher Navigator · Getting-Started One-Page Reference · SCDE</title>
+<meta name="description" content="A one-page reference for getting started with GPS Teacher Navigator: logging in, the navigation rail, and the Grade, Classroom, and Student views. South Carolina Department of Education." />
+<style>
+:root {
+  --scde-slate: #2F3D4C; --scde-slate-700: #243140; --scde-slate-900: #1B2837;
+  --scde-slate-200: #E5EAF0; --scde-slate-100: #F2F5F9;
+  --scde-gold: #F1BA55; --scde-gold-dark: #C99224; --scde-gold-100: #FCEFD3;
+  --scde-teal: #43718B; --scde-teal-dark: #2E5870; --scde-teal-100: #D8E5EC;
+  --scde-cream: #FAF7F0; --scde-alice: #EFF6FF;
+  --scde-ink: #1A2330; --scde-ink-muted: #4B5C70; --scde-line: #D7DEE6;
+  --scde-danger: #B3261E;
+  --font-display: 'Poppins', 'Aptos Display', 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', 'Aptos', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 20px;
+  --s-6: 24px; --s-8: 32px; --s-10: 40px;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: var(--font-body); color: var(--scde-ink); background: #E9ECF1; font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; padding: var(--s-6); }
+
+.sheet { max-width: 880px; margin: 0 auto; background: #fff; border: 1px solid var(--scde-line); border-radius: var(--r-lg); box-shadow: 0 8px 28px rgba(27,40,55,.08); overflow: hidden; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); color: var(--scde-slate-900); margin: 0 0 var(--s-2); line-height: 1.2; letter-spacing: -.005em; }
+h1 { font-size: 26px; font-weight: 700; }
+h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .14em; color: var(--scde-teal-dark); margin-bottom: var(--s-3); }
+h3 { font-size: 15px; font-weight: 600; }
+h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--scde-teal-dark); font-weight: 600; }
+p { margin: 0 0 var(--s-3); }
+a { color: var(--scde-teal-dark); }
+
+.head { background: var(--scde-slate-900); color: #fff; padding: var(--s-6) var(--s-8); border-bottom: 3px solid var(--scde-gold); display: grid; grid-template-columns: 1fr auto; gap: var(--s-4); align-items: center; }
+.head .eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--scde-gold); margin-bottom: 4px; }
+.head h1 { color: #fff; margin-bottom: 4px; font-size: 28px; }
+.head .sub { color: rgba(255,255,255,.78); font-size: 13px; }
+.head .meta { font-family: var(--font-display); text-align: right; font-size: 11px; color: rgba(255,255,255,.7); line-height: 1.6; }
+
+.audience-strip { background: var(--scde-cream); padding: var(--s-3) var(--s-8); font-size: 12px; color: var(--scde-slate-700); display: flex; gap: var(--s-4); flex-wrap: wrap; align-items: center; border-bottom: 1px solid var(--scde-line); }
+.audience-strip strong { color: var(--scde-slate-900); font-family: var(--font-display); }
+.dot { width: 4px; height: 4px; border-radius: 50%; background: var(--scde-ink-muted); display: inline-block; }
+
+.body { display: grid; grid-template-columns: 1.1fr 1fr; gap: 0; }
+.col { padding: var(--s-6) var(--s-8); }
+.col.left { border-right: 1px solid var(--scde-line); }
+.block { margin-bottom: var(--s-5); }
+.block:last-child { margin-bottom: 0; }
+.lede { font-size: 13.5px; color: var(--scde-ink); }
+
+/* level cards */
+.levels2 { display: grid; grid-template-columns: 1fr; gap: var(--s-2); margin-top: var(--s-2); }
+.level2 { border: 1px solid var(--scde-line); border-radius: var(--r-sm); padding: var(--s-3); background: #fff; font-size: 12.5px; line-height: 1.5; display: grid; grid-template-columns: 84px 1fr; gap: var(--s-3); align-items: baseline; }
+.level2 .lead { font-family: var(--font-display); font-weight: 600; color: var(--scde-slate-900); font-size: 13px; }
+.level2 .lead small { display:block; font-weight:400; color: var(--scde-ink-muted); font-family: var(--font-body); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+.level2 p { margin: 0; color: var(--scde-ink-muted); }
+
+/* tab strip */
+.tabsv-mini { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s-2); }
+.tabsv-mini .t { border: 1px solid var(--scde-line); border-radius: var(--r-sm); padding: var(--s-3); font-size: 11.5px; line-height: 1.4; position: relative; background: #fff; text-align: center; }
+.tabsv-mini .t .n { font-family: var(--font-display); font-weight: 600; color: var(--scde-slate-900); font-size: 12.5px; margin-bottom: 2px; }
+
+.steps { display: grid; gap: var(--s-2); counter-reset: step; }
+.step { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; counter-increment: step; }
+.step::before { content: counter(step); width: 22px; height: 22px; background: var(--scde-slate-900); color: var(--scde-gold); border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 11px; flex: 0 0 22px; }
+.step .label { font-family: var(--font-display); font-weight: 600; color: var(--scde-slate-900); font-size: 13px; margin-bottom: 2px; }
+.step .label small { font-weight: 400; color: var(--scde-ink-muted); font-family: var(--font-body); }
+.step .help { font-size: 12px; color: var(--scde-ink-muted); margin: 0; }
+
+.callout { background: var(--scde-alice); border-left: 3px solid var(--scde-teal); padding: var(--s-3) var(--s-4); border-radius: var(--r-sm); font-size: 12.5px; line-height: 1.5; }
+.callout.warn { background: var(--scde-gold-100); border-left-color: var(--scde-gold-dark); }
+.callout h4 { color: var(--scde-teal-dark); font-size: 11px; margin-bottom: 4px; }
+.callout.warn h4 { color: var(--scde-gold-dark); }
+.callout p:last-child { margin-bottom: 0; }
+
+.foot { background: var(--scde-slate-100); padding: var(--s-5) var(--s-8); display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: var(--s-5); font-size: 11.5px; color: var(--scde-ink-muted); border-top: 1px solid var(--scde-line); line-height: 1.6; }
+.foot h4 { font-size: 10px; margin-bottom: var(--s-2); }
+.foot strong { color: var(--scde-slate-900); }
+.foot a { font-weight: 500; }
+.foot p { margin: 0; }
+
+.version { background: var(--scde-slate-900); color: rgba(255,255,255,.65); padding: 8px var(--s-8); font-size: 10.5px; display: flex; justify-content: space-between; font-family: var(--font-display); letter-spacing: .04em; text-transform: uppercase; }
+.version a { color: var(--scde-gold); text-decoration: none; }
+
+@media print {
+  body { background: #fff; padding: 0; }
+  .sheet { box-shadow: none; border: 0; border-radius: 0; max-width: none; }
+  .head, .foot, .audience-strip, .version { break-inside: avoid; }
+  .body { break-inside: avoid; }
+  @page { size: Letter; margin: 0.4in; }
+}
+@media (max-width: 720px) {
+  .body { grid-template-columns: 1fr; }
+  .col.left { border-right: 0; border-bottom: 1px solid var(--scde-line); }
+  .head, .foot { grid-template-columns: 1fr; text-align: left; }
+  .head .meta { text-align: left; }
+  .tabsv-mini { grid-template-columns: 1fr 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<article class="sheet">
+
+  <header class="head">
+    <div>
+      <div class="eyebrow">Teacher Navigator · Getting-Started Reference</div>
+      <h1>Teacher Navigator at a glance</h1>
+      <div class="sub">Log in, find your way around, and read the Grade, Classroom &amp; Student views.</div>
+    </div>
+    <div class="meta">
+      v1.0 · 2026-06-15<br/>
+      Companion guide not included in this preview
+    </div>
+  </header>
+
+  <div class="audience-strip">
+    <strong>For:</strong>
+    <span>Teachers</span>
+    <span class="dot" aria-hidden="true"></span>
+    <span>Counselors</span>
+    <span class="dot" aria-hidden="true"></span>
+    <span>Instructional coaches</span>
+    <span class="dot" aria-hidden="true"></span>
+    <span>School &amp; district staff with access</span>
+  </div>
+
+  <div class="body">
+
+    <div class="col left">
+
+      <section class="block">
+        <h2>What it is</h2>
+        <p class="lede">
+          <strong>Teacher Navigator</strong> is the GPS ecosystem's classroom-facing view of student attendance,
+          assessments, behavior, and well-being. It organizes everything into three nested levels so you can start
+          with a whole grade and drill down to a single student.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2>The three levels</h2>
+        <div class="levels2">
+          <div class="level2">
+            <div class="lead">Grade<small>Widest</small></div>
+            <p>A whole grade at a school. Spot cohort-wide patterns.</p>
+          </div>
+          <div class="level2">
+            <div class="lead">Classroom<small>Narrower</small></div>
+            <p>One course section. Compare your class to the district average.</p>
+          </div>
+          <div class="level2">
+            <div class="lead">Student<small>Deepest</small></div>
+            <p>One child's full picture, including programs &amp; CCR.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Tabs you'll see</h2>
+        <div class="tabsv-mini">
+          <div class="t"><div class="n">at a glance</div><div>Headline stats</div></div>
+          <div class="t"><div class="n">assessments</div><div>Test results</div></div>
+          <div class="t"><div class="n">performance over time</div><div>Student only</div></div>
+        </div>
+        <p style="font-size:12px;color:var(--scde-ink-muted);margin-top:var(--s-2);margin-bottom:0">
+          Plus <strong>well-being</strong>, <strong>behavior</strong>, and <strong>attendance</strong> depending on the
+          level. Learn one level and the others feel familiar.
+        </p>
+      </section>
+
+      <section class="block">
+        <div class="callout">
+          <h4>How to read the bands</h4>
+          <p style="margin:0">
+            Assessment results show a colored proficiency bar — red/orange (lower) through green/blue (higher). The
+            filled segment is where the group falls. Expand any result to see it broken out by <strong>subscore</strong>
+            (skill area).
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="col right">
+
+      <section class="block">
+        <h2>Quick start</h2>
+        <div class="steps">
+          <div class="step">
+            <div>
+              <div class="label">Sign in <small>(portal.edanalytics.app)</small></div>
+              <p class="help">Use your SCDE/district account.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Click <strong>GPS&nbsp;|&nbsp;Teacher Navigator</strong></div>
+              <p class="help">You open to <em>your grade levels</em>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Use the left rail to move</div>
+              <p class="help"><em>find a…</em> (search) · grade · class · student · group · tools.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <div class="label">Open a level &amp; pick a tab</div>
+              <p class="help">at a glance, assessments, well-being, behavior, etc.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>The drill-down move</h2>
+        <p style="font-size:12.5px;line-height:1.5;margin-bottom:0">
+          (1) <strong>Grade →</strong> is there a pattern across the cohort?
+          (2) <strong>Classroom →</strong> compare <em>this class</em> vs. <em>district average</em>.
+          (3) <strong>Student →</strong> check subscores for <em>which skills</em> and <em>performance over time</em> for the trend.
+          (4) Act: subscores say what to reteach; the trend says how urgent.
+        </p>
+      </section>
+
+      <section class="block">
+        <div class="callout warn">
+          <h4>Good to know</h4>
+          <p style="margin-bottom:6px"><strong>"Powered by Rally."</strong> Teacher Navigator is the SCDE name for EA's "Rally." Seeing the Rally logo in the app is expected.</p>
+          <p style="margin-bottom:6px"><strong>Behavior tab is empty for SC.</strong> South Carolina doesn't feed behavior data here, so the behavior tab and "behavior incidents" stat won't populate — ignore them.</p>
+          <p style="margin-bottom:0"><strong>What you see = your access.</strong> Missing a grade, class, or student is usually an access/roster question — route it to your school's GPS contact.</p>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="callout">
+          <h4>Two things to remember</h4>
+          <p style="margin-bottom:6px"><strong>Go wide to narrow.</strong> Grade finds the pattern, Classroom locates it, Student names who and what.</p>
+          <p style="margin-bottom:0"><strong>State equivalent</strong> puts different tests on one yardstick — that's the scale the <em>performance over time</em> chart uses.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div>
+      <h4>Get help</h4>
+      <p><strong>SCDE GPS team</strong><br/>
+      <a href="mailto:gps@ed.sc.gov">gps@ed.sc.gov</a></p>
+      <p style="margin-top:6px"><strong>Education Analytics</strong><br/>
+      <a href="https://support.edanalytics.org" target="_blank" rel="noopener">support.edanalytics.org</a></p>
+    </div>
+    <div>
+      <h4>Companion guides</h4>
+      <p>Companion guide not included in this preview</p>
+      <p>Companion guide not included in this preview</p>
+      <p>Companion guide not included in this preview</p>
+    </div>
+    <div>
+      <h4>About</h4>
+      <p>Produced by SCDE GPS team.<br/>
+      Based on EA office hours, 2026-03-02 (Teacher Navigator Overview deck + transcript).<br/>
+      Part of the GPS ecosystem training set.</p>
+    </div>
+  </footer>
+
+  <div class="version">
+    <div>SCDE · Growing Pathways for Students · Teacher Navigator</div>
+    <div>Getting Started · One-Page Reference v1.0 · 2026-06-15</div>
+  </div>
+</article>
+
+</body>
+</html>
