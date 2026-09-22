@@ -1,0 +1,110 @@
+<!doctype html>
+<!-- v1.1 · 2026-06-29 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assessment: Student Detail · One-Page Reference · Administrator Navigator · SCDE</title>
+<style>
+:root{--navy:#1b2837;--slate:#2f3d4c;--gold:#f1ba55;--gold-soft:#fcefd3;--teal:#43718b;--teal-dark:#2e5870;--teal-soft:#d8e5ec;--cream:#faf7f0;--ink:#1a2330;--muted:#4b5c70;--line:#d7dee6;--pale:#f2f5f9;--display:"Aptos Display","Segoe UI",system-ui,sans-serif;--body:"Aptos","Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}body{background:#e9ecf1;color:var(--ink);font:12.5px/1.42 var(--body);padding:22px}
+.sheet{max-width:850px;min-height:1100px;margin:auto;background:#fff;border:1px solid var(--line);box-shadow:0 8px 28px #1b283716;overflow:hidden}
+.head{background:var(--navy);border-bottom:4px solid var(--gold);color:#fff;padding:22px 28px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+.eyebrow{font:700 10px var(--display);text-transform:uppercase;letter-spacing:.16em;color:var(--gold)}h1,h2,h3{font-family:var(--display);margin:0;color:var(--navy);line-height:1.18}h1{color:#fff;font-size:27px;margin:3px 0}.sub{color:#ffffffc5}
+.meta{text-align:right;color:#ffffffb8;font-size:10px}.badge{display:inline-block;background:var(--gold);color:var(--navy);border-radius:999px;padding:3px 8px;font-weight:800;letter-spacing:.08em}
+.strip{background:var(--cream);border-bottom:1px solid var(--line);padding:10px 28px;color:var(--slate);display:flex;gap:14px;flex-wrap:wrap}.strip strong{color:var(--navy)}
+.body{display:grid;grid-template-columns:1fr 1fr}.col{padding:22px 27px}.col:first-child{border-right:1px solid var(--line)}.block{margin-bottom:18px}.block:last-child{margin:0}
+h2{font-size:12px;text-transform:uppercase;letter-spacing:.13em;color:var(--teal-dark);margin-bottom:9px}h3{font-size:14px;margin-bottom:5px}p{margin:0 0 9px}ul,ol{margin:0;padding-left:18px}li{margin-bottom:5px}
+.decision{display:grid;grid-template-columns:1fr 1fr;gap:8px}.choice{border:1px solid var(--line);border-radius:9px;padding:10px;background:var(--pale)}.choice.primary{background:var(--gold-soft);border-color:#e4bf78}.choice b{display:block;font:700 13px var(--display);color:var(--navy)}
+.order{counter-reset:n;display:grid;gap:6px}.row{counter-increment:n;display:grid;grid-template-columns:21px 1fr;gap:8px;align-items:start}.row:before{content:counter(n);width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:var(--gold);font-weight:800;font-size:10px}
+.call{background:var(--gold-soft);border-left:4px solid var(--gold);padding:10px 12px}.call.teal{background:#eff6ff;border-color:var(--teal)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:7px}.mini{border:1px solid var(--line);border-radius:8px;padding:9px}.mini b{display:block;color:var(--teal-dark);font-family:var(--display)}
+.example{background:#eff6ff;border:1px solid var(--teal-soft);border-radius:10px;padding:12px}.example strong{color:var(--navy)}
+.check{list-style:none;padding:0}.check li{padding-left:20px;position:relative}.check li:before{content:"✓";position:absolute;left:0;color:var(--teal-dark);font-weight:900}
+.foot{border-top:1px solid var(--line);background:var(--pale);padding:10px 28px;display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:9.5px}
+a{color:var(--teal-dark)}
+@page{size:letter;margin:.35in}
+@media print{body{background:#fff;padding:0}.sheet{width:7.8in;min-height:10.25in;border:0;box-shadow:none;margin:0}.head{-webkit-print-color-adjust:exact;print-color-adjust:exact}.body{break-inside:avoid}.foot{position:absolute;bottom:.2in;width:7.8in}.choice,.call,.example,.mini,.strip,.foot{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media(max-width:650px){body{padding:0}.sheet{min-height:auto}.body{grid-template-columns:1fr}.col:first-child{border-right:0;border-bottom:1px solid var(--line)}.head{grid-template-columns:1fr}.meta{text-align:left}}
+</style>
+</head>
+<body>
+<article class="sheet">
+  <header class="head">
+    <div><div class="eyebrow">Administrator Navigator · Quick reference</div><h1>Assessment: Student Detail</h1><div class="sub">Build complete, exportable student lists from an assessment question.</div></div>
+    <div class="meta"><span class="badge">DISTRICT + SCHOOL</span><br>v1.1 · June 29, 2026</div>
+  </header>
+  <div class="strip"><strong>Best for:</strong><span>named rosters</span><span>cross-grade tests</span><span>performance bands</span><span>student-group follow-up</span></div>
+  <div class="body">
+    <section class="col">
+      <div class="block">
+        <h2>Choose the right dashboard</h2>
+        <div class="decision">
+          <div class="choice"><b>Assessment</b>“How are groups performing?”</div>
+          <div class="choice primary"><b>Student Detail</b>“Which students are meeting expectations?”</div>
+        </div>
+      </div>
+      <div class="block">
+        <h2>Recommended filter order</h2>
+        <div class="order">
+          <div class="row"><div><strong>Set year.</strong> Confirm enrollment year and assessment year.</div></div>
+          <div class="row"><div><strong>Set place.</strong> Select district and school as needed.</div></div>
+          <div class="row"><div><strong>Set test.</strong> Choose season, subject, and assessment.</div></div>
+          <div class="row"><div><strong>Set result.</strong> Add performance level when the question requires it.</div></div>
+          <div class="row"><div><strong>Set group.</strong> Add grade, ML/ELL, 504, special education, or other student group last.</div></div>
+        </div>
+      </div>
+      <div class="block call">
+        <strong>WIN rule:</strong> Do not force a grade filter when the assessment assignment crosses grade levels. Select the relevant WIN assessments and applicable year instead.
+      </div>
+      <div class="block">
+        <h2>Verify the roster</h2>
+        <div class="fields">
+          <div class="mini"><b>Filters Applied</b>Population definition</div>
+          <div class="mini"><b>Most recent date</b>Administration check</div>
+          <div class="mini"><b>Student table</b>Record-level details</div>
+          <div class="mini"><b>Summary table</b>Counts by result</div>
+        </div>
+      </div>
+    </section>
+    <section class="col">
+      <div class="block">
+        <h2>Worked example</h2>
+        <div class="example"><strong>Question:</strong> Which ML/ELL students met or exceeded expectations on a fall formative assessment?
+          <ol>
+            <li>Set year and district/school.</li>
+            <li>Select Fall, assessment, and subject.</li>
+            <li>Add grade if the test is grade-specific.</li>
+            <li>Select ML/ELL status.</li>
+            <li>Select Meets Expectations and higher bands.</li>
+            <li>Review Filters Applied and export.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="block call teal">
+        <strong>Multiple rows?</strong> The table is assessment-record level. One student may have multiple tests or seasons. Use Student ID to deduplicate when you need one row per student.
+      </div>
+      <div class="block">
+        <h2>Before you export</h2>
+        <ul class="check">
+          <li>Confirm every active filter.</li>
+          <li>Compare rows with unique Student IDs.</li>
+          <li>Check assessment and test date columns.</li>
+          <li>Keep Student ID in the working file.</li>
+          <li>Share student-level files only through approved systems.</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h2>Common recovery</h2>
+        <p>If the list is empty or surprising: <strong>Clear all → set years → select assessment → add groups one at a time.</strong></p>
+      </div>
+      <div class="block">
+        <h2>Need the full tour?</h2>
+        <p>Companion guide not included in this preview</p>
+      </div>
+    </section>
+  </div>
+  <footer class="foot"><span>SCDE · Administrator Navigator</span><span>Grounded in EA office hours: June 9/11 + October 6, 2025</span></footer>
+</article>
+</body>
+</html>

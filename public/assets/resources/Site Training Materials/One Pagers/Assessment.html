@@ -1,0 +1,111 @@
+<!doctype html>
+<!-- v1.1 · 2026-06-29 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assessment Dashboard · One-Page Reference · Administrator Navigator · SCDE</title>
+<style>
+:root{--navy:#1b2837;--slate:#2f3d4c;--gold:#f1ba55;--gold-soft:#fcefd3;--teal:#43718b;--teal-dark:#2e5870;--teal-soft:#d8e5ec;--cream:#faf7f0;--ink:#1a2330;--muted:#4b5c70;--line:#d7dee6;--pale:#f2f5f9;--display:"Aptos Display","Segoe UI",system-ui,sans-serif;--body:"Aptos","Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}body{background:#e9ecf1;color:var(--ink);font:12.5px/1.42 var(--body);padding:22px}
+.sheet{max-width:850px;min-height:1100px;margin:auto;background:#fff;border:1px solid var(--line);box-shadow:0 8px 28px #1b283716;overflow:hidden}
+.head{background:var(--navy);border-bottom:4px solid var(--gold);color:#fff;padding:22px 28px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+.eyebrow{font:700 10px var(--display);text-transform:uppercase;letter-spacing:.16em;color:var(--gold)}h1,h2,h3{font-family:var(--display);margin:0;color:var(--navy);line-height:1.18}h1{color:#fff;font-size:29px;margin:3px 0}.sub{color:#ffffffc5}
+.meta{text-align:right;color:#ffffffb8;font-size:10px}.badge{display:inline-block;background:var(--gold);color:var(--navy);border-radius:999px;padding:3px 8px;font-weight:800;letter-spacing:.08em}
+.strip{background:var(--cream);border-bottom:1px solid var(--line);padding:10px 28px;color:var(--slate);display:flex;gap:14px;flex-wrap:wrap}.strip strong{color:var(--navy)}
+.body{display:grid;grid-template-columns:1fr 1fr}.col{padding:22px 27px}.col:first-child{border-right:1px solid var(--line)}.block{margin-bottom:18px}.block:last-child{margin:0}
+h2{font-size:12px;text-transform:uppercase;letter-spacing:.13em;color:var(--teal-dark);margin-bottom:9px}h3{font-size:14px;margin-bottom:5px}p{margin:0 0 9px}ul,ol{margin:0;padding-left:18px}li{margin-bottom:5px}
+.decision{display:grid;grid-template-columns:1fr 1fr;gap:8px}.choice{border:1px solid var(--line);border-radius:9px;padding:10px;background:var(--pale)}.choice.primary{background:var(--gold-soft);border-color:#e4bf78}.choice b{display:block;font:700 13px var(--display);color:var(--navy)}
+.order{counter-reset:n;display:grid;gap:6px}.row{counter-increment:n;display:grid;grid-template-columns:21px 1fr;gap:8px;align-items:start}.row:before{content:counter(n);width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:var(--gold);font-weight:800;font-size:10px}
+.call{background:var(--gold-soft);border-left:4px solid var(--gold);padding:10px 12px}.call.teal{background:#eff6ff;border-color:var(--teal)}
+.anatomy{display:grid;grid-template-columns:1fr 1fr;gap:7px}.mini{border:1px solid var(--line);border-radius:8px;padding:9px}.mini b{display:block;color:var(--teal-dark);font-family:var(--display)}
+.example{background:#eff6ff;border:1px solid var(--teal-soft);border-radius:10px;padding:12px}.example strong{color:var(--navy)}
+.check{list-style:none;padding:0}.check li{padding-left:20px;position:relative}.check li:before{content:"✓";position:absolute;left:0;color:var(--teal-dark);font-weight:900}
+.foot{border-top:1px solid var(--line);background:var(--pale);padding:10px 28px;display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:9.5px}
+a{color:var(--teal-dark)}
+@page{size:letter;margin:.35in}
+@media print{body{background:#fff;padding:0}.sheet{width:7.8in;min-height:10.25in;border:0;box-shadow:none;margin:0}.head{-webkit-print-color-adjust:exact;print-color-adjust:exact}.body{break-inside:avoid}.foot{position:absolute;bottom:.2in;width:7.8in}.choice,.call,.example,.mini,.strip,.foot{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media(max-width:650px){body{padding:0}.sheet{min-height:auto}.body{grid-template-columns:1fr}.col:first-child{border-right:0;border-bottom:1px solid var(--line)}.head{grid-template-columns:1fr}.meta{text-align:left}}
+</style>
+</head>
+<body>
+<article class="sheet">
+  <header class="head">
+    <div><div class="eyebrow">Administrator Navigator · Quick reference</div><h1>Assessment</h1><div class="sub">Compare assessment patterns across schools, seasons, years, and student groups.</div></div>
+    <div class="meta"><span class="badge">DISTRICT + SCHOOL</span><br>v1.1 · June 29, 2026</div>
+  </header>
+  <div class="strip"><strong>Best for:</strong><span>percentages</span><span>distributions</span><span>trends</span><span>school comparisons</span></div>
+  <div class="body">
+    <section class="col">
+      <div class="block">
+        <h2>Choose the right dashboard</h2>
+        <div class="decision">
+          <div class="choice primary"><b>Assessment</b>“How are groups performing?”</div>
+          <div class="choice"><b>Student Detail</b>“Which students are included?”</div>
+        </div>
+      </div>
+      <div class="block">
+        <h2>Recommended filter order</h2>
+        <div class="order">
+          <div class="row"><div><strong>Set the year.</strong> Clear all first if results look wrong.</div></div>
+          <div class="row"><div><strong>Select assessment + subject.</strong> Keep the test definition consistent.</div></div>
+          <div class="row"><div><strong>Select grade.</strong> Cut scores often differ by grade, though some exams pre-select grade.</div></div>
+          <div class="row"><div><strong>Select season(s).</strong> Compare like administrations and see trends over time.</div></div>
+          <div class="row"><div><strong>Add school or student group.</strong> Narrow only after the base slice is valid.</div></div>
+        </div>
+      </div>
+      <div class="block call">
+        <strong>Grade rule:</strong> Do not combine grades when performance thresholds differ. ACT, SAT, WIN, and similar high-school assessments may use the assessment population instead.
+      </div>
+      <div class="block">
+        <h2>Read the dashboard</h2>
+        <div class="anatomy">
+          <div class="mini"><b>Key metrics</b>Count + average</div>
+          <div class="mini"><b>School table</b>School vs district</div>
+          <div class="mini"><b>Distribution</b>The spread of scores across the district, school, or subset.</div>
+          <div class="mini"><b>Season charts</b>Levels + scores over time</div>
+        </div>
+      </div>
+    </section>
+    <section class="col">
+      <div class="block">
+        <h2>Worked example</h2>
+        <div class="example"><strong>Question:</strong> What percentage of seventh graders met or exceeded expectations in spring compared with fall?
+          <ol>
+            <li>Set year and district/school.</li>
+            <li>Select one assessment and subject.</li>
+            <li>Select Grade 7.</li>
+            <li>Include Fall and Spring.</li>
+            <li>Read performance level by season.</li>
+            <li>Check counts before interpreting the difference.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="block">
+        <h2>Before you share a result</h2>
+        <ul class="check">
+          <li>Write down every active filter.</li>
+          <li>Include the number of assessments or students.</li>
+          <li>Use View as table for exact values.</li>
+          <li>Say “the dashboard shows” before claiming why.</li>
+          <li>Use Student Detail for the follow-up roster.</li>
+        </ul>
+      </div>
+      <div class="block call teal">
+        <strong>Empty dashboard?</strong> Clear all, confirm the year, and rebuild the query from assessment to cohort. A stale year is a common cause.
+      </div>
+      <div class="block">
+        <h2>Export</h2>
+        <p><strong>CSV / Excel:</strong> exact values or additional analysis<br><strong>Image / PDF:</strong> briefing or meeting artifact</p>
+        <p>Always carry the filter definition and record count with the export.</p>
+      </div>
+      <div class="block">
+        <h2>Need the full tour?</h2>
+        <p>Companion guide not included in this preview</p>
+      </div>
+    </section>
+  </div>
+  <footer class="foot"><span>SCDE · Administrator Navigator</span><span>Grounded in EA office hours: June 9/11 + October 6, 2025</span></footer>
+</article>
+</body>
+</html>
